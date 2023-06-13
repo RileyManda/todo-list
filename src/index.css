@@ -196,6 +196,9 @@ input[type="text"] {
   opacity: 0.5;
 }
 
+li.clicked {
+  background-color: yellow;
+}
 /* list items  END */
 
 /* Input field   END */

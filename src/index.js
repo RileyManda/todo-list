@@ -33,7 +33,7 @@ const handleDragStart = (event) => {
 const inputField = document.querySelector('.add-item');
 
 const handleClick = (event) => {
-  const listItem = event.target.closest('li');
+  const listItem = event.currentTarget;
   const label = listItem.querySelector('label');
   const moreIconElement = listItem.querySelector('.more-icon');
 
@@ -52,8 +52,15 @@ const handleClick = (event) => {
   }
 };
 
+const todoListItems = document.querySelectorAll('#todo-list li');
+todoListItems.forEach((listItem) => {
+  listItem.addEventListener('click', handleClick);
+});
+
+const todoList = document.getElementById('todo-list');
+todoList.addEventListener('click', handleClick);
+
 const iterateTodoItems = () => {
-  const todoList = document.getElementById('todo-list');
   TodoItems.forEach((todoItem) => {
     const listItem = document.createElement('li');
 
@@ -144,7 +151,6 @@ backspaceIconElement.classList.add('backspace-icon');
 
 inputField.appendChild(backspaceIconElement);
 
-const todoList = document.getElementById('todo-list');
 todoList.addEventListener('dragover', handleDragOver);
 todoList.addEventListener('dragenter', handleDragEnter);
 todoList.addEventListener('dragleave', handleDragLeave);
