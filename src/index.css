@@ -164,13 +164,24 @@ input[type="text"] {
   padding-bottom: 10px;
 }
 
-.list-items li .more-icon {
+/* .list-items li .more-icon {
   width: 20px;
   margin-right: -10px;
 }
 
 .list-items li .more-icon:hover {
   cursor: move;
+} */
+
+.list-items li .more-icon {
+  width: 20px;
+  margin-right: -10px;
+  transition: src 0.3s ease;
+}
+
+.list-items li:hover .more-icon {
+  cursor: move;
+  src: url('./assets/more-vert.png');
 }
 
 .list-items li .checkbox {
