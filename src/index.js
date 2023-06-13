@@ -1,5 +1,6 @@
 import refreshIcon from './assets/refresh-icon.png';
 import backspaceIcon from './assets/back-space-icon.png';
+import moreIcon from './assets/more-vert.png';
 import './index.css';
 // array of todo items
 
@@ -33,8 +34,14 @@ const iterateTodoItems = () => {
     // label.textContent = `${todoItem.index}: ${todoItem.description}`;
     label.textContent = todoItem.description;
 
+    const moreIconElement = document.createElement('img');
+    moreIconElement.src = moreIcon;
+    moreIconElement.alt = 'More Icon';
+    moreIconElement.classList.add('more-icon');
+
     listItem.appendChild(checkbox);
     listItem.appendChild(label);
+    listItem.appendChild(moreIconElement);
     todoList.appendChild(listItem);
   });
 };
