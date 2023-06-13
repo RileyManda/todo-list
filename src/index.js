@@ -1,5 +1,5 @@
 import refreshIcon from './assets/refresh-icon.png';
-
+import './index.css';
 // array of todo items
 
 const TodoItems = [
@@ -40,8 +40,9 @@ const iterateTodoItems = () => {
 iterateTodoItems();
 
 // refresh icon:
-const divElement = document.getElementById('refresh-icon');
 const imgElement = document.createElement('img');
 imgElement.src = refreshIcon;
 imgElement.alt = 'Refresh icon';
-divElement.appendChild(imgElement);
+imgElement.classList.add('refresh-icon');
+const imageContainer = document.querySelector('.image-container');
+imageContainer.appendChild(imgElement);
