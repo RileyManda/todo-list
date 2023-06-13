@@ -24,7 +24,7 @@ const iterateTodoItems = () => {
 
   TodoItems.forEach((todoItem) => {
     const listItem = document.createElement('li');
-    listItem.textContent = `${todoItem.index}: ${todoItem.description}`;
+    listItem.textContent = `${todoItem.index}: ${todoItem.description} (${todoItem.completed})`;
     todoList.appendChild(listItem);
   });
 };
