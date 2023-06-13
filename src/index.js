@@ -30,7 +30,8 @@ const iterateTodoItems = () => {
     checkbox.type = 'checkbox';
 
     const label = document.createElement('label');
-    label.textContent = `${todoItem.index}: ${todoItem.description}`;
+    // label.textContent = `${todoItem.index}: ${todoItem.description}`;
+    label.textContent = todoItem.description;
 
     listItem.appendChild(checkbox);
     listItem.appendChild(label);
@@ -53,5 +54,5 @@ backspaceIconElement.src = backspaceIcon;
 backspaceIconElement.alt = 'Backspace icon';
 backspaceIconElement.classList.add('backspace-icon');
 
-const inputField = document.querySelector('.input-field');
+const inputField = document.querySelector('.add-item');
 inputField.appendChild(backspaceIconElement);

@@ -12,7 +12,8 @@
 }
 
 .card {
-  width: 600px;
+  position: relative;
+  width: 500px;
   height: 300px;
   margin: 0 auto;
   border: 1px solid var(--card-bg);
@@ -22,27 +23,28 @@
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
+  margin-top: 30px;
 }
 
 /* card header */
 .card-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
   color: #545862;
-  width: 80%;
-  position: relative;
 }
 
 .card-header h2 {
-  margin-right: 50px;
+  margin-right: 10px;
+}
+
+.header-icons {
+  margin-left: auto;
 }
 
 .refresh-icon {
   width: 30px;
   height: 30px;
-  position: absolute;
   right: 0;
 }
 
@@ -56,17 +58,19 @@
 /* card body END */
 
 /* Input field   */
-.input-field {
+.add-item {
   display: flex;
   align-items: center;
   border: none;
   outline: none;
 }
 
-.input-field input {
-  width: 80%;
+.add-item input {
+  width: 90%;
   border: none;
   outline: none;
+  line-height: 50px;
+  font-size: 20px;
 }
 
 .backspace-icon {
@@ -96,4 +100,16 @@
   background-color: grey;
   display: flex;
   justify-content: center;
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  max-width: 100%;
+  padding: 10px 20px;
+  margin-bottom: -20px;
+}
+
+.clear-completed h5 {
+  margin: 0;
 }
