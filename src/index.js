@@ -23,7 +23,6 @@ export default { TodoItems };
 
 const iterateTodoItems = () => {
   const todoList = document.getElementById('todo-list');
-
   TodoItems.forEach((todoItem) => {
     const listItem = document.createElement('li');
     const checkbox = document.createElement('input');
