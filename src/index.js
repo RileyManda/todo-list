@@ -18,11 +18,21 @@ const TodoItems = [
 
 let dragItem = null;
 
+const handleDragStart = (event) => {
+  const moreIconElement = event.target.closest('.more-icon');
+  if (moreIconElement) {
+    dragItem = event.target.closest('li');
+    event.dataTransfer.setData('text/plain', '');
+    dragItem.classList.add('dragging');
+  } else {
+    event.preventDefault();
+  }
+};
+
 const iterateTodoItems = () => {
   const todoList = document.getElementById('todo-list');
   TodoItems.forEach((todoItem) => {
     const listItem = document.createElement('li');
-    listItem.draggable = true;
 
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
@@ -35,18 +45,14 @@ const iterateTodoItems = () => {
     moreIconElement.src = moreIcon;
     moreIconElement.alt = 'More Icon';
     moreIconElement.classList.add('more-icon');
+    moreIconElement.draggable = true;
+    moreIconElement.addEventListener('dragstart', handleDragStart);
 
     listItem.appendChild(checkbox);
     listItem.appendChild(label);
     listItem.appendChild(moreIconElement);
     todoList.appendChild(listItem);
   });
-};
-
-const handleDragStart = (event) => {
-  dragItem = event.target;
-  event.dataTransfer.setData('text/plain', '');
-  dragItem.classList.add('dragging');
 };
 
 const handleDragOver = (event) => {
@@ -66,7 +72,7 @@ const handleDrop = (event) => {
   event.preventDefault();
   const dropTarget = event.target;
   const list = dropTarget.closest('.list-items');
-  const listItem = dragItem;
+  const listItem = dragItem.closest('li');
   const targetIndex = Array.from(list.children).indexOf(dropTarget);
 
   list.removeChild(listItem);
@@ -97,7 +103,6 @@ const inputField = document.querySelector('.add-item');
 inputField.appendChild(backspaceIconElement);
 
 const todoList = document.getElementById('todo-list');
-todoList.addEventListener('dragstart', handleDragStart);
 todoList.addEventListener('dragover', handleDragOver);
 todoList.addEventListener('dragenter', handleDragEnter);
 todoList.addEventListener('dragleave', handleDragLeave);
