@@ -24,7 +24,14 @@ const iterateTodoItems = () => {
 
   TodoItems.forEach((todoItem) => {
     const listItem = document.createElement('li');
-    listItem.textContent = `${todoItem.index}: ${todoItem.description} (${todoItem.completed})`;
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+
+    const label = document.createElement('label');
+    label.textContent = `${todoItem.index}: ${todoItem.description}`;
+
+    listItem.appendChild(checkbox);
+    listItem.appendChild(label);
     todoList.appendChild(listItem);
   });
 };
