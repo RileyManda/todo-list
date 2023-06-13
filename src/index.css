@@ -3,13 +3,14 @@
 :root {
   --white-bg-color: #fff;
   --card-bg: #ccc;
-  --body-background: #f1f2f5;
+  --body-background: #fff;
   --card-background: #fff;
   --card-box-shadow: rgba(0, 0, 0, 0.2);
 }
 
 body {
   background: var(--body-background);
+  font-family: 'Open Sans', 'Lucida Grande', tahoma, verdana, arial, sans-serif;
 }
 
 * {
@@ -44,8 +45,9 @@ body {
   color: #545862;
 }
 
-.card-header h2 {
+.card-header h3 {
   margin-right: 10px;
+  font-size: 18px;
 }
 
 .card-header::after {
@@ -125,6 +127,11 @@ input[type="text"] {
   z-index: 1;
 }
 
+.checkbox-icon {
+  width: 16px;
+  height: 16px;
+}
+
 /* Input field END   */
 
 /* list items  */
@@ -177,8 +184,8 @@ input[type="text"] {
 
 .clear-completed {
   cursor: pointer;
-  color: #888686;
-  background-color: #e0dede;
+  color: #8e8e8e;
+  background-color: #e1e1e1;
   display: flex;
   justify-content: center;
   position: absolute;
