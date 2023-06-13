@@ -5,6 +5,7 @@
   --card-bg: #ccc;
   --body-background: #f1f2f5;
   --card-background: #fff;
+  --card-box-shadow: rgba(0, 0, 0, 0.2);
 }
 
 body {
@@ -24,7 +25,7 @@ body {
   margin: 0 auto;
   border: 1px solid var(--card-bg);
   border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px var(--card-box-shadow);
   padding: 16px;
   margin-bottom: 20px;
   display: flex;
@@ -145,6 +146,7 @@ input[type="text"] {
   line-height: 25px;
   color: #545862;
   padding: 10px;
+  justify-content: space-between;
 }
 
 .list-items li:not(:last-child) {
@@ -155,18 +157,18 @@ input[type="text"] {
 
 .list-items li .more-icon {
   width: 20px;
-  margin-left: auto;
+  margin-right: -10px;
 }
 
 .list-items li .checkbox {
-  margin-right: 10px;
+  margin-right: 4px;
 }
 
 .list-items li label {
-  margin-right: 10px;
+  margin-right: 230px;
   white-space: normal;
   overflow: hidden;
-  margin-left: 12px;
+  margin-left: 8px;
 }
 
 /* list items  END */
