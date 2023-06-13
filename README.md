@@ -142,6 +142,9 @@ All the dependencies are available in package.json and can be installed locally 
 
 To run the project, in your terminal, execute the following commands:
 
+```sh
+    npm run build   npm start
+```
 <!-- TESTS -->
 <br><hr>
 ### <b>Run tests 🧪</b><a name="run-tests"></a>
@@ -149,9 +152,6 @@ To run the project, in your terminal, execute the following commands:
 How should it be tested? 
 To run tests, run the following command:
 
-```sh
-    npm run build   npm start
-```
 - CSS linter errors run:
 
 ```
