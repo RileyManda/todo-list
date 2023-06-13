@@ -13,6 +13,7 @@ import backspaceIcon from './assets/back-space-icon.png';
 import moreIcon from './assets/more-vert.png';
 import dustbinIcon from './assets/bin-icon.png';
 import './index.css';
+import addItemToTodoList from './addItem.js';
 
 const inputField = document.querySelector('.add-item');
 
@@ -94,5 +95,12 @@ cardText.addEventListener('click', () => {
     card.classList.add('editing');
     moreIconElement.src = dustbinIcon;
     moreIconElement.alt = 'Dustbin Icon';
+  }
+});
+
+// Add event listener for the Enter key press
+inputField.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    addItemToTodoList();
   }
 });
