@@ -7,7 +7,7 @@ import './index.css';
 const TodoItems = [
   {
     index: 1,
-    description: 'wash the dishes',
+    description: 'going to wash the dishes',
     completed: false,
   },
   {
