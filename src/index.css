@@ -6,7 +6,7 @@
   --body-background: #fff;
   --card-background: #fff;
   --card-box-shadow: rgba(0, 0, 0, 0.2);
-  --card-header-text: #828282;
+  --card-header-text: #797878;
 }
 
 body {
@@ -43,12 +43,12 @@ body {
   align-items: center;
   margin-bottom: 10px;
   width: 100%;
-  color: var(--card-header-text);
 }
 
 .card-header h3 {
   margin-right: 10px;
   font-size: 18px;
+  color: var(--card-header-text);
 }
 
 .card-header::after {
@@ -118,7 +118,7 @@ input[type="text"] {
 .backspace-icon {
   width: 20px;
   margin-left: 10px;
-  fill: #888686;
+  fill: gray;
 }
 
 .add-item .backspace-icon {
@@ -181,6 +181,10 @@ input[type="text"] {
   width: 100%;
 }
 
+.gray-checkbox {
+  background-color: rgb(158, 158, 158);
+}
+
 /* list items  END */
 
 /* Input field   END */
@@ -205,4 +209,12 @@ input[type="text"] {
 
 .clear-completed h5 {
   margin: 0;
+}
+
+.list-items li.dragging {
+  opacity: 0.5;
+}
+
+.list-items li.drag-over {
+  background-color: #f0f0f0;
 }
