@@ -1,5 +1,11 @@
-/* empty css file */
+/* project css styles */
 
-body {
-  background-color: bisque;
+:root {
+  --white-bg-color: #fff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
