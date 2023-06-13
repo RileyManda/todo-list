@@ -7,17 +7,12 @@ import './index.css';
 const TodoItems = [
   {
     index: 1,
-    description: 'Task1',
+    description: 'wash the dishes',
     completed: false,
   },
   {
     index: 2,
-    description: 'Task2',
-    completed: false,
-  },
-  {
-    index: 3,
-    description: 'Task3',
+    description: 'complete To Do List project',
     completed: false,
   },
 ];
