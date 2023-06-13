@@ -6,6 +6,7 @@
   --body-background: #fff;
   --card-background: #fff;
   --card-box-shadow: rgba(0, 0, 0, 0.2);
+  --card-header-text: #828282;
 }
 
 body {
@@ -42,7 +43,7 @@ body {
   align-items: center;
   margin-bottom: 10px;
   width: 100%;
-  color: #545862;
+  color: var(--card-header-text);
 }
 
 .card-header h3 {
@@ -144,6 +145,7 @@ input[type="text"] {
   list-style: none;
   padding-left: 0;
   margin-bottom: 0;
+  overflow: visible;
 }
 
 .list-items li {
@@ -172,10 +174,11 @@ input[type="text"] {
 }
 
 .list-items li label {
-  margin-right: 230px;
-  white-space: normal;
+  margin-right: 200px;
   overflow: hidden;
   margin-left: 8px;
+  white-space: normal;
+  width: 100%;
 }
 
 /* list items  END */
