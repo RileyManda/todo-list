@@ -1,4 +1,5 @@
 import refreshIcon from './assets/refresh-icon.png';
+import backspaceIcon from './assets/back-space-icon.png';
 import './index.css';
 // array of todo items
 
@@ -39,10 +40,18 @@ const iterateTodoItems = () => {
 
 iterateTodoItems();
 
-// refresh icon:
-const imgElement = document.createElement('img');
-imgElement.src = refreshIcon;
-imgElement.alt = 'Refresh icon';
-imgElement.classList.add('refresh-icon');
-const imageContainer = document.querySelector('.image-container');
-imageContainer.appendChild(imgElement);
+const header = document.querySelector('.card-header');
+const refreshIconElement = document.createElement('img');
+refreshIconElement.src = refreshIcon;
+refreshIconElement.alt = 'Refresh icon';
+refreshIconElement.classList.add('refresh-icon');
+
+header.appendChild(refreshIconElement);
+
+const backspaceIconElement = document.createElement('img');
+backspaceIconElement.src = backspaceIcon;
+backspaceIconElement.alt = 'Backspace icon';
+backspaceIconElement.classList.add('backspace-icon');
+
+const inputField = document.querySelector('.input-field');
+inputField.appendChild(backspaceIconElement);

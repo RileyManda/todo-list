@@ -2,6 +2,7 @@
 
 :root {
   --white-bg-color: #fff;
+  --card-bg: #ccc;
 }
 
 * {
@@ -11,40 +12,88 @@
 }
 
 .card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 300px;
+  width: 600px;
+  height: 300px;
   margin: 0 auto;
-  border: 1px solid #ccc;
+  border: 1px solid var(--card-bg);
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   padding: 16px;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
+/* card header */
 .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 10px;
+  color: #545862;
+  width: 80%;
+  position: relative;
 }
 
+.card-header h2 {
+  margin-right: 50px;
+}
+
+.refresh-icon {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 0;
+}
+
+/* card header END */
+
+/* card body */
 .card-body {
   margin-top: 10px;
 }
 
+/* card body END */
+
+/* Input field   */
 .input-field {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  border: none;
+  outline: none;
 }
 
-.refresh-icon {
-  width: 12px;
-  height: 12px;
+.input-field input {
+  width: 80%;
+  border: none;
+  outline: none;
+}
+
+.backspace-icon {
+  width: 20px;
   margin-left: 10px;
 }
 
+/* Input field END   */
+
+/* list items  */
+.list-items {
+  cursor: pointer;
+  color: #424242;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  list-style: none;
+}
+
+/* list items  END */
+
+/* Input field   END */
+
 .clear-completed {
   cursor: pointer;
-  color: #0a0a0a;
+  color: #424242;
   background-color: grey;
+  display: flex;
+  justify-content: center;
 }
