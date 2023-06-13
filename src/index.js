@@ -1,6 +1,7 @@
 import refreshIcon from './assets/refresh-icon.png';
 import backspaceIcon from './assets/back-space-icon.png';
 import moreIcon from './assets/more-vert.png';
+import dustbinIcon from './assets/bin-icon.png';
 import './index.css';
 
 const TodoItems = [
@@ -29,6 +30,28 @@ const handleDragStart = (event) => {
   }
 };
 
+const inputField = document.querySelector('.add-item');
+
+const handleClick = (event) => {
+  const listItem = event.target.closest('li');
+  const label = listItem.querySelector('label');
+  const moreIconElement = listItem.querySelector('.more-icon');
+
+  if (listItem.classList.contains('editing')) {
+    // Save the changes
+    label.textContent = inputField.value;
+    listItem.classList.remove('editing');
+    moreIconElement.src = moreIcon;
+    moreIconElement.alt = 'More Icon';
+  } else {
+    // Enter edit mode
+    inputField.value = label.textContent;
+    listItem.classList.add('editing');
+    moreIconElement.src = dustbinIcon;
+    moreIconElement.alt = 'Dustbin Icon';
+  }
+};
+
 const iterateTodoItems = () => {
   const todoList = document.getElementById('todo-list');
   TodoItems.forEach((todoItem) => {
@@ -52,6 +75,26 @@ const iterateTodoItems = () => {
     listItem.appendChild(label);
     listItem.appendChild(moreIconElement);
     todoList.appendChild(listItem);
+
+    listItem.addEventListener('click', (event) => {
+      const listItem = event.currentTarget;
+      const label = listItem.querySelector('label');
+      const moreIconElement = listItem.querySelector('.more-icon');
+
+      if (listItem.classList.contains('editing')) {
+        // Save the changes
+        label.textContent = inputField.value;
+        listItem.classList.remove('editing');
+        moreIconElement.src = moreIcon;
+        moreIconElement.alt = 'More Icon';
+      } else {
+        // Enter edit mode
+        inputField.value = label.textContent;
+        listItem.classList.add('editing');
+        moreIconElement.src = dustbinIcon;
+        moreIconElement.alt = 'Dustbin Icon';
+      }
+    });
   });
 };
 
@@ -99,7 +142,6 @@ backspaceIconElement.src = backspaceIcon;
 backspaceIconElement.alt = 'Backspace icon';
 backspaceIconElement.classList.add('backspace-icon');
 
-const inputField = document.querySelector('.add-item');
 inputField.appendChild(backspaceIconElement);
 
 const todoList = document.getElementById('todo-list');
@@ -108,3 +150,21 @@ todoList.addEventListener('dragenter', handleDragEnter);
 todoList.addEventListener('dragleave', handleDragLeave);
 todoList.addEventListener('drop', handleDrop);
 todoList.addEventListener('dragend', handleDragEnd);
+
+const card = document.querySelector('.card');
+const cardText = document.querySelector('.card-text');
+const moreIconElement = card.querySelector('.more-icon');
+
+cardText.addEventListener('click', () => {
+  if (card.classList.contains('editing')) {
+    // Save the changes
+    card.classList.remove('editing');
+    moreIconElement.src = moreIcon;
+    moreIconElement.alt = 'More Icon';
+  } else {
+    // Enter edit mode
+    card.classList.add('editing');
+    moreIconElement.src = dustbinIcon;
+    moreIconElement.alt = 'Dustbin Icon';
+  }
+});
