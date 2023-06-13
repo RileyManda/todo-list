@@ -211,6 +211,11 @@ input[type="text"] {
   background-color: yellow;
 }
 
+.list-items li label.crossed-out {
+  text-decoration: line-through;
+  color: #ccc;
+}
+
 /* list items  END */
 
 /* Input field   END */

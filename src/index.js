@@ -7,7 +7,7 @@ import {
   handleDrop,
   handleDragEnd,
 } from './dragUtils.js';
-import handleClick from './clickUtils.js';
+import { handleCheckboxChange } from './clickUtils.js';
 import refreshIcon from './assets/refresh-icon.png';
 import backspaceIcon from './assets/back-space-icon.png';
 import moreIcon from './assets/more-vert.png';
@@ -19,13 +19,13 @@ const inputField = document.querySelector('.add-item');
 const todoListItems = document.querySelectorAll('#todo-list li');
 todoListItems.forEach((listItem) => {
   listItem.addEventListener('click', (event) => {
-    handleClick(event, inputField, moreIcon, dustbinIcon);
+    handleCheckboxChange(event, inputField, moreIcon, dustbinIcon);
   });
 });
 
 const todoList = document.getElementById('todo-list');
 todoList.addEventListener('click', (event) => {
-  handleClick(event, inputField, moreIcon, dustbinIcon);
+  handleCheckboxChange(event, inputField, moreIcon, dustbinIcon);
 });
 
 const iterateTodoItems = () => {
@@ -52,7 +52,7 @@ const iterateTodoItems = () => {
     todoList.appendChild(listItem);
 
     listItem.addEventListener('click', (event) => {
-      handleClick(event, inputField, moreIcon, dustbinIcon);
+      handleCheckboxChange(event, inputField, moreIcon, dustbinIcon);
     });
   });
 };
