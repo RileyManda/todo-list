@@ -1,64 +1,32 @@
+import TodoItems from './todoData.js';
+import {
+  handleDragStart,
+  handleDragOver,
+  handleDragEnter,
+  handleDragLeave,
+  handleDrop,
+  handleDragEnd,
+} from './dragUtils.js';
+import handleClick from './clickUtils.js';
 import refreshIcon from './assets/refresh-icon.png';
 import backspaceIcon from './assets/back-space-icon.png';
 import moreIcon from './assets/more-vert.png';
 import dustbinIcon from './assets/bin-icon.png';
 import './index.css';
 
-const TodoItems = [
-  {
-    index: 1,
-    description: 'going to wash the dishes',
-    completed: false,
-  },
-  {
-    index: 2,
-    description: 'complete To Do List project',
-    completed: false,
-  },
-];
-
-let dragItem = null;
-
-const handleDragStart = (event) => {
-  const moreIconElement = event.target.closest('.more-icon');
-  if (moreIconElement) {
-    dragItem = event.target.closest('li');
-    event.dataTransfer.setData('text/plain', '');
-    dragItem.classList.add('dragging');
-  } else {
-    event.preventDefault();
-  }
-};
-
 const inputField = document.querySelector('.add-item');
-
-const handleClick = (event) => {
-  const listItem = event.currentTarget;
-  const label = listItem.querySelector('label');
-  const moreIconElement = listItem.querySelector('.more-icon');
-
-  if (listItem.classList.contains('editing')) {
-    // Save the changes
-    label.textContent = inputField.value;
-    listItem.classList.remove('editing');
-    moreIconElement.src = moreIcon;
-    moreIconElement.alt = 'More Icon';
-  } else {
-    // Enter edit mode
-    inputField.value = label.textContent;
-    listItem.classList.add('editing');
-    moreIconElement.src = dustbinIcon;
-    moreIconElement.alt = 'Dustbin Icon';
-  }
-};
 
 const todoListItems = document.querySelectorAll('#todo-list li');
 todoListItems.forEach((listItem) => {
-  listItem.addEventListener('click', handleClick);
+  listItem.addEventListener('click', (event) => {
+    handleClick(event, inputField, moreIcon, dustbinIcon);
+  });
 });
 
 const todoList = document.getElementById('todo-list');
-todoList.addEventListener('click', handleClick);
+todoList.addEventListener('click', (event) => {
+  handleClick(event, inputField, moreIcon, dustbinIcon);
+});
 
 const iterateTodoItems = () => {
   TodoItems.forEach((todoItem) => {
@@ -84,55 +52,9 @@ const iterateTodoItems = () => {
     todoList.appendChild(listItem);
 
     listItem.addEventListener('click', (event) => {
-      const listItem = event.currentTarget;
-      const label = listItem.querySelector('label');
-      const moreIconElement = listItem.querySelector('.more-icon');
-
-      if (listItem.classList.contains('editing')) {
-        // Save the changes
-        label.textContent = inputField.value;
-        listItem.classList.remove('editing');
-        moreIconElement.src = moreIcon;
-        moreIconElement.alt = 'More Icon';
-      } else {
-        // Enter edit mode
-        inputField.value = label.textContent;
-        listItem.classList.add('editing');
-        moreIconElement.src = dustbinIcon;
-        moreIconElement.alt = 'Dustbin Icon';
-      }
+      handleClick(event, inputField, moreIcon, dustbinIcon);
     });
   });
-};
-
-const handleDragOver = (event) => {
-  event.preventDefault();
-};
-
-const handleDragEnter = (event) => {
-  event.preventDefault();
-  event.target.classList.add('drag-over');
-};
-
-const handleDragLeave = (event) => {
-  event.target.classList.remove('drag-over');
-};
-
-const handleDrop = (event) => {
-  event.preventDefault();
-  const dropTarget = event.target;
-  const list = dropTarget.closest('.list-items');
-  const listItem = dragItem.closest('li');
-  const targetIndex = Array.from(list.children).indexOf(dropTarget);
-
-  list.removeChild(listItem);
-  list.insertBefore(listItem, list.children[targetIndex]);
-  dropTarget.classList.remove('drag-over');
-};
-
-const handleDragEnd = () => {
-  dragItem.classList.remove('dragging');
-  dragItem = null;
 };
 
 iterateTodoItems();
@@ -158,7 +80,7 @@ todoList.addEventListener('drop', handleDrop);
 todoList.addEventListener('dragend', handleDragEnd);
 
 const card = document.querySelector('.card');
-const cardText = document.querySelector('.card-text');
+const cardText = document.querySelector('.card h3'); // Modified line
 const moreIconElement = card.querySelector('.more-icon');
 
 cardText.addEventListener('click', () => {
