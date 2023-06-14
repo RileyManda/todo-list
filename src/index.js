@@ -97,6 +97,12 @@ const iterateTodoItems = () => {
         moreIconElement.alt = 'More Icon';
         listItem.classList.remove('selected');
         listItem.classList.add('edit-mode');
+
+        // Update the description in the storage
+        const index = Array.from(todoList.children).indexOf(listItem);
+        const updatedList = getListFromStorage();
+        updatedList[index].description = listItem.querySelector('label').textContent;
+        saveListToStorage(updatedList);
       }
     });
 
