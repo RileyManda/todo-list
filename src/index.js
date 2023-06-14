@@ -1,4 +1,4 @@
-// import TodoItems from './todoData.js';
+import clearCompletedItems from './clearItems.js';
 import {
   handleDragStart,
   handleDragOver,
@@ -141,4 +141,9 @@ inputField.addEventListener('keydown', (event) => {
   if (event.key === 'Enter') {
     addItemToTodoList();
   }
+});
+const clearButton = document.getElementById('clear');
+clearButton.addEventListener('click', () => {
+  clearCompletedItems();
+  saveListToStorage(getListFromDOM()); // Update storage after clearing completed items
 });
