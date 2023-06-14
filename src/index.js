@@ -14,7 +14,6 @@ import moreIcon from './assets/more-vert.png';
 import dustbinIcon from './assets/bin-icon.png';
 import './index.css';
 import addItemToTodoList from './addItem.js';
-import clearCompletedItems from './clearItem.js';
 import { getListFromStorage, saveListToStorage } from './localStorage.js';
 
 const inputField = document.querySelector('.add-item');
@@ -142,10 +141,4 @@ inputField.addEventListener('keydown', (event) => {
   if (event.key === 'Enter') {
     addItemToTodoList();
   }
-});
-
-const clearButton = document.getElementById('clear');
-clearButton.addEventListener('click', () => {
-  clearCompletedItems();
-  saveListToStorage(getListFromDOM()); // Update storage after clearing completed items
 });
