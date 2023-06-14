@@ -13,6 +13,8 @@
   --grey-text-color: #ccc;
   --dark-grey-icon-color: #919090;
   --list-item-color: #424242;
+  --edit-item-color: #ff0;
+  --list-item-drag-color: #d6d5d5;
 }
 
 body {
@@ -212,11 +214,11 @@ input[type="text"] {
 }
 
 .list-items .selected {
-  background-color: yellow;
+  background-color: var(--edit-item-color);
 }
 
 .list-items .edit-mode {
-  background-color: #fff;
+  background-color: var(--white-bg-color);
 }
 
 .edit-input {
@@ -228,7 +230,7 @@ input[type="text"] {
 
 .list-items li label.crossed-out {
   text-decoration: line-through;
-  color: #ccc;
+  color: var(--grey-text-color);
 }
 
 .list-items li.selected .more-icon {
@@ -264,7 +266,7 @@ input[type="text"] {
 /* clear items footer bottom END */
 
 .list-items li.drag-over {
-  background-color: #f0f0f0;
+  background-color: var(--list-item-drag-color);
 }
 
 .dragging {
@@ -287,14 +289,14 @@ input[type="text"] {
   align-items: center;
   width: 100%;
   line-height: 25px;
-  color: #545862;
+  color: var(--list-item-color);
   padding: 10px;
   justify-content: space-between;
   margin-bottom: 40px;
 }
 
 #todo-list li:not(:last-child) {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--grey-text-color);
   margin-bottom: 10px;
   padding-bottom: 10px;
 }
@@ -330,16 +332,16 @@ input[type="text"] {
 }
 
 #todo-list .selected {
-  background-color: yellow;
+  background-color: var(--edit-item-color);
 }
 
 #todo-list .edit-mode {
-  background-color: #fff;
+  background-color: var(--white-bg-color);
 }
 
 #todo-list li label.crossed-out {
   text-decoration: line-through;
-  color: #ccc;
+  color: var(--grey-text-color);
 }
 
 #todo-list li.selected .more-icon {
