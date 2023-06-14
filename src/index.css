@@ -7,6 +7,14 @@
   --card-background: #fff;
   --card-box-shadow: rgba(0, 0, 0, 0.2);
   --card-header-text: #797878;
+  --clear-completed-background: #e1e1e1;
+  --clear-completed-text-color: #8e8e8e;
+  --card-background-color: #ccc;
+  --grey-text-color: #ccc;
+  --dark-grey-icon-color: #919090;
+  --list-item-color: #424242;
+  --edit-item-color: #ff0;
+  --list-item-drag-color: #d6d5d5;
 }
 
 body {
@@ -34,8 +42,9 @@ body {
   margin-top: 30px;
   background: var(--card-background);
   overflow: hidden;
-  max-height: 300px;
+  max-height: 400px;
   transition: max-height 0.3s ease;
+  padding-bottom: 40px;
 }
 
 .card.expanded {
@@ -43,9 +52,10 @@ body {
 }
 
 .card-body {
-  margin-top: 12px;
   margin-bottom: 2px;
   overflow-y: auto;
+  margin-top: auto;
+  flex-grow: 1;
 }
 
 /* card header */
@@ -69,7 +79,7 @@ body {
   left: 0;
   width: 100%;
   height: 1px;
-  background-color: #ccc;
+  background-color: var(--card-background-color);
   bottom: -10px;
 }
 
@@ -85,12 +95,6 @@ body {
 
 /* card header END */
 
-/* card body */
-
-/* card body END */
-
-/* icon colors */
-
 /* Input field   */
 .add-item {
   display: flex;
@@ -98,6 +102,7 @@ body {
   border: none;
   outline: none;
   position: relative;
+  margin-bottom: 20px;
 }
 
 .add-item input {
@@ -115,7 +120,7 @@ body {
   left: 0;
   width: 100%;
   height: 1px;
-  background-color: #ccc;
+  background-color: var(--grey-text-color);
   z-index: 1;
 }
 
@@ -126,7 +131,7 @@ input[type="text"] {
 .backspace-icon {
   width: 20px;
   margin-left: 10px;
-  fill: gray;
+  fill: var(--dark-grey-icon-color);
 }
 
 .add-item .backspace-icon {
@@ -147,7 +152,7 @@ input[type="text"] {
 .list-items {
   display: flex;
   cursor: pointer;
-  color: #424242;
+  color: var(--list-item-color);
   flex-direction: column;
   align-items: flex-start;
   list-style: none;
@@ -162,14 +167,14 @@ input[type="text"] {
   align-items: center;
   width: 100%;
   line-height: 25px;
-  color: #545862;
+  color: var(--list-item-color);
   padding: 10px;
   justify-content: space-between;
   margin-bottom: 40px;
 }
 
 .list-items li:not(:last-child) {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--grey-text-color);
   margin-bottom: 10px;
   padding-bottom: 10px;
 }
@@ -209,11 +214,11 @@ input[type="text"] {
 }
 
 .list-items .selected {
-  background-color: yellow;
+  background-color: var(--edit-item-color);
 }
 
 .list-items .edit-mode {
-  background-color: #fff;
+  background-color: var(--white-bg-color);
 }
 
 .edit-input {
@@ -225,7 +230,7 @@ input[type="text"] {
 
 .list-items li label.crossed-out {
   text-decoration: line-through;
-  color: #ccc;
+  color: var(--grey-text-color);
 }
 
 .list-items li.selected .more-icon {
@@ -237,30 +242,31 @@ input[type="text"] {
 
 /* Input field   END */
 
+/* clear items footer bottom */
 .clear-completed {
   cursor: pointer;
-  color: #8e8e8e;
-  background-color: #e1e1e1;
-  display: flex;
+  color: var(--clear-completed-text-color);
+  background-color: var(--clear-completed-background);
   justify-content: center;
   position: absolute;
-  bottom: 10px;
+  bottom: -10px;
   left: 0;
   right: 0;
-  margin: 0 auto;
-  max-width: 100%;
-  padding: 25px 0;
-  margin-bottom: -20px;
+  margin: 50px 0 0;
+  padding: 20px 0;
   font-weight: normal;
   font-size: 20px;
+  display: flex;
 }
 
 .clear-completed h5 {
   margin: 0;
 }
 
+/* clear items footer bottom END */
+
 .list-items li.drag-over {
-  background-color: #f0f0f0;
+  background-color: var(--list-item-drag-color);
 }
 
 .dragging {
@@ -283,14 +289,14 @@ input[type="text"] {
   align-items: center;
   width: 100%;
   line-height: 25px;
-  color: #545862;
+  color: var(--list-item-color);
   padding: 10px;
   justify-content: space-between;
   margin-bottom: 40px;
 }
 
 #todo-list li:not(:last-child) {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--grey-text-color);
   margin-bottom: 10px;
   padding-bottom: 10px;
 }
@@ -326,16 +332,16 @@ input[type="text"] {
 }
 
 #todo-list .selected {
-  background-color: yellow;
+  background-color: var(--edit-item-color);
 }
 
 #todo-list .edit-mode {
-  background-color: #fff;
+  background-color: var(--white-bg-color);
 }
 
 #todo-list li label.crossed-out {
   text-decoration: line-through;
-  color: #ccc;
+  color: var(--grey-text-color);
 }
 
 #todo-list li.selected .more-icon {
@@ -346,3 +352,5 @@ input[type="text"] {
 .card.expanded #todo-list {
   max-height: none;
 }
+
+/* card body END */
