@@ -65,7 +65,6 @@ const iterateTodoItems = () => {
     listItem.appendChild(moreIconElement);
     todoList.appendChild(listItem);
     todoItem.index = index + 1;
-    console.log(`Index for "${todoItem.description}": ${todoItem.index}`);
     checkbox.addEventListener('change', (event) => {
       const listItem = event.target.closest('li');
       const label = listItem.querySelector('label');
