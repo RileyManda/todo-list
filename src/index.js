@@ -49,6 +49,9 @@ const iterateTodoItems = () => {
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.classList.add('gray-checkbox');
+    checkbox.checked = todoItem.completed;
+    checkbox.classList.add('gray-checkbox');
+    checkbox.addEventListener('change', handleCheckboxChange);
 
     const label = document.createElement('label');
     label.textContent = todoItem.description;

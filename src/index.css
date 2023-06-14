@@ -15,6 +15,8 @@
   --list-item-color: #424242;
   --edit-item-color: #ff0;
   --list-item-drag-color: #d6d5d5;
+  --crossed-text-color: #9b9999;
+  --drag-over-bordr-color: #c9d3e0;
 }
 
 body {
@@ -213,8 +215,13 @@ input[type="text"] {
   opacity: 0.5;
 }
 
+.drag-over {
+  border: 2px solid var(--drag-over-bordr-color);
+}
+
 .list-items .selected {
   background-color: var(--edit-item-color);
+  border-radius: 0;
 }
 
 .list-items .edit-mode {
@@ -341,7 +348,7 @@ input[type="text"] {
 
 #todo-list li label.crossed-out {
   text-decoration: line-through;
-  color: var(--grey-text-color);
+  color: var(--crossed-text-color);
 }
 
 #todo-list li.selected .more-icon {
