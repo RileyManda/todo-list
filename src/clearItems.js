@@ -1,10 +1,14 @@
 const clearCompletedItems = () => {
-  const completedItems = document.querySelectorAll(
-    '.list-items li input[type="checkbox"]:checked',
+  const completedItems = Array.from(
+    document.querySelectorAll('.list-items li input[type="checkbox"]:checked'),
   );
-  completedItems.forEach((item) => {
-    item.closest('li').remove();
-  });
+
+  completedItems
+    .map((item) => item.closest('li'))
+    .filter((li) => li)
+    .forEach((li) => {
+      li.remove();
+    });
 };
 
 export default clearCompletedItems;
