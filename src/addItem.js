@@ -1,10 +1,9 @@
-import {
-  handleDragStart,
-} from './dragUtils.js';
+import { handleDragStart } from './dragUtils.js';
 import { handleCheckboxChange } from './clickUtils.js';
 import moreIcon from './assets/more-vert.png';
 import dustbinIcon from './assets/bin-icon.png';
 import './index.css';
+import { getListFromStorage, saveListToStorage } from './localStorage.js';
 
 const addItemToTodoList = () => {
   const inputField = document.querySelector('.add-item input');
@@ -38,6 +37,10 @@ const addItemToTodoList = () => {
     });
 
     inputField.value = ''; // Clear the input field
+
+    const updatedList = getListFromStorage();
+    updatedList.push({ description: inputValue, completed: false });
+    saveListToStorage(updatedList);
   }
 };
 
