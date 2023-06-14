@@ -7,6 +7,8 @@ module.exports = {
   mode: 'none',
   devServer: {
     static: './dist',
+    liveReload: true,
+    hot: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
