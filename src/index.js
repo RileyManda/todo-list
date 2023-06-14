@@ -14,6 +14,7 @@ import moreIcon from './assets/more-vert.png';
 import dustbinIcon from './assets/bin-icon.png';
 import './index.css';
 import addItemToTodoList from './addItem.js';
+import clearCompletedItems from './cleatItems.js';
 
 const inputField = document.querySelector('.add-item');
 
@@ -104,3 +105,6 @@ inputField.addEventListener('keydown', (event) => {
     addItemToTodoList();
   }
 });
+
+const clearButton = document.getElementById('clear');
+clearButton.addEventListener('click', clearCompletedItems);
