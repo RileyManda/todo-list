@@ -7,6 +7,12 @@
   --card-background: #fff;
   --card-box-shadow: rgba(0, 0, 0, 0.2);
   --card-header-text: #797878;
+  --clear-completed-background: #e1e1e1;
+  --clear-completed-text-color: #8e8e8e;
+  --card-background-color: #ccc;
+  --grey-text-color: #ccc;
+  --dark-grey-icon-color: #919090;
+  --list-item-color: #424242;
 }
 
 body {
@@ -34,7 +40,7 @@ body {
   margin-top: 30px;
   background: var(--card-background);
   overflow: hidden;
-  max-height: 300px;
+  max-height: 400px;
   transition: max-height 0.3s ease;
 }
 
@@ -43,7 +49,7 @@ body {
 }
 
 .card-body {
-  margin-top: 12px;
+  margin-top: 18px;
   margin-bottom: 2px;
   overflow-y: auto;
 }
@@ -69,7 +75,7 @@ body {
   left: 0;
   width: 100%;
   height: 1px;
-  background-color: #ccc;
+  background-color: var(--card-background-color);
   bottom: -10px;
 }
 
@@ -84,12 +90,6 @@ body {
 }
 
 /* card header END */
-
-/* card body */
-
-/* card body END */
-
-/* icon colors */
 
 /* Input field   */
 .add-item {
@@ -115,7 +115,7 @@ body {
   left: 0;
   width: 100%;
   height: 1px;
-  background-color: #ccc;
+  background-color: var(--grey-text-color);
   z-index: 1;
 }
 
@@ -126,7 +126,7 @@ input[type="text"] {
 .backspace-icon {
   width: 20px;
   margin-left: 10px;
-  fill: gray;
+  fill: var(--dark-grey-icon-color);
 }
 
 .add-item .backspace-icon {
@@ -147,7 +147,7 @@ input[type="text"] {
 .list-items {
   display: flex;
   cursor: pointer;
-  color: #424242;
+  color: var(--list-item-color);
   flex-direction: column;
   align-items: flex-start;
   list-style: none;
@@ -162,14 +162,14 @@ input[type="text"] {
   align-items: center;
   width: 100%;
   line-height: 25px;
-  color: #545862;
+  color: var(--list-item-color);
   padding: 10px;
   justify-content: space-between;
   margin-bottom: 40px;
 }
 
 .list-items li:not(:last-child) {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--grey-text-color);
   margin-bottom: 10px;
   padding-bottom: 10px;
 }
@@ -239,18 +239,17 @@ input[type="text"] {
 
 .clear-completed {
   cursor: pointer;
-  color: #8e8e8e;
-  background-color: #e1e1e1;
+  color: var(--clear-completed-text-color);
+  background-color: var(--clear-completed-background);
   display: flex;
   justify-content: center;
   position: absolute;
-  bottom: 10px;
+  bottom: -10px;
   left: 0;
   right: 0;
   margin: 0 auto;
   max-width: 100%;
   padding: 25px 0;
-  margin-bottom: -20px;
   font-weight: normal;
   font-size: 20px;
 }
@@ -346,3 +345,5 @@ input[type="text"] {
 .card.expanded #todo-list {
   max-height: none;
 }
+
+/* card body END */
