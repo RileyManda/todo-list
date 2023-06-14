@@ -2,7 +2,7 @@ const handleListItemClick = (event) => {
   const listItem = event.target.closest('li');
   const label = listItem.querySelector('label');
 
-  listItem.classList.toggle('selected');
+  listItem.classList.toggle('selected'); // Toggle the 'selected' class
 
   if (listItem.classList.contains('selected')) {
     label.contentEditable = true;
@@ -11,6 +11,7 @@ const handleListItemClick = (event) => {
     label.contentEditable = false;
   }
 };
+
 const listItems = document.querySelectorAll('.list-items li');
 listItems.forEach((listItem) => {
   listItem.addEventListener('click', handleListItemClick);
@@ -21,10 +22,9 @@ const handleCheckboxChange = (event) => {
 
   if (event.target.checked) {
     label.classList.add('crossed-out');
-    listItem.classList.add('selected');
+    listItem.classList.remove('selected');
   } else {
     label.classList.remove('crossed-out');
-    listItem.classList.remove('selected');
   }
 };
 
@@ -45,7 +45,7 @@ const renderTodoList = (todoItems) => {
     label.textContent = todoItem.description;
     if (todoItem.completed) {
       label.classList.add('crossed-out');
-      listItem.classList.add('selected');
+      listItem.classList.add('normal');
     }
 
     listItem.appendChild(checkbox);

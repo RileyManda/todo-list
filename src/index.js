@@ -14,7 +14,7 @@ import moreIcon from './assets/more-vert.png';
 import dustbinIcon from './assets/bin-icon.png';
 import './index.css';
 import addItemToTodoList from './addItem.js';
-import clearCompletedItems from './cleatItems.js';
+import clearCompletedItems from './clearItem.js';
 
 const inputField = document.querySelector('.add-item');
 
@@ -53,8 +53,43 @@ const iterateTodoItems = () => {
     listItem.appendChild(moreIconElement);
     todoList.appendChild(listItem);
 
-    listItem.addEventListener('click', (event) => {
-      handleCheckboxChange(event, inputField, moreIcon, dustbinIcon);
+    checkbox.addEventListener('change', (event) => {
+      const listItem = event.target.closest('li');
+      const label = listItem.querySelector('label');
+
+      if (event.target.checked) {
+        label.classList.add('crossed-out');
+        listItem.classList.add('completed');
+      } else {
+        label.classList.remove('crossed-out');
+        listItem.classList.remove('completed');
+      }
+    });
+
+    listItem.addEventListener('click', () => {
+      listItem.contentEditable = true;
+      listItem.focus();
+      moreIconElement.src = dustbinIcon;
+      moreIconElement.alt = 'Dustbin Icon';
+      listItem.classList.add('selected');
+      listItem.classList.remove('edit-mode');
+    });
+
+    listItem.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        listItem.contentEditable = false;
+        moreIconElement.src = moreIcon;
+        moreIconElement.alt = 'More Icon';
+        listItem.classList.remove('selected');
+        listItem.classList.add('edit-mode');
+      }
+    });
+
+    moreIconElement.addEventListener('click', (event) => {
+      event.stopPropagation(); // Prevent the click event from propagating to the list item
+      if (moreIconElement.src === dustbinIcon) {
+        listItem.remove();
+      }
     });
   });
 };
@@ -80,25 +115,6 @@ todoList.addEventListener('dragenter', handleDragEnter);
 todoList.addEventListener('dragleave', handleDragLeave);
 todoList.addEventListener('drop', handleDrop);
 todoList.addEventListener('dragend', handleDragEnd);
-
-const card = document.querySelector('.card');
-const cardText = document.querySelector('.card h3'); // Modified line
-const moreIconElement = card.querySelector('.more-icon');
-
-cardText.addEventListener('click', () => {
-  if (card.classList.contains('editing')) {
-    // Save the changes
-    card.classList.remove('editing');
-    moreIconElement.src = moreIcon;
-    moreIconElement.alt = 'More Icon';
-  } else {
-    // Enter edit mode
-    card.classList.add('editing');
-    moreIconElement.src = dustbinIcon;
-    moreIconElement.alt = 'Dustbin Icon';
-  }
-});
-
 // Add event listener for the Enter key press
 inputField.addEventListener('keydown', (event) => {
   if (event.key === 'Enter') {

@@ -205,6 +205,10 @@ input[type="text"] {
   background-color: yellow;
 }
 
+.list-items .edit-mode {
+  background-color: #fff;
+}
+
 .edit-input {
   border: none;
   outline: none;
@@ -212,14 +216,14 @@ input[type="text"] {
   width: 100%;
 }
 
-.list-items li.selected .more-icon {
-  background-image: url('./assets/bin-icon.png');
-  transition: background-image 0.3s ease;
-}
-
 .list-items li label.crossed-out {
   text-decoration: line-through;
   color: #ccc;
+}
+
+.list-items li.selected .more-icon {
+  background-image: url('./assets/bin-icon.png');
+  transition: background-image 0.3s ease;
 }
 
 /* list items  END */
