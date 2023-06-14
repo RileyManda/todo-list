@@ -39,7 +39,12 @@ const addItemToTodoList = () => {
     inputField.value = ''; // Clear the input field
 
     const updatedList = getListFromStorage();
-    updatedList.push({ description: inputValue, completed: false });
+    const newItem = {
+      description: inputValue,
+      completed: false,
+      index: updatedList.length + 1,
+    };
+    updatedList.push(newItem);
     saveListToStorage(updatedList);
   }
 };
