@@ -42,6 +42,7 @@ body {
   overflow: hidden;
   max-height: 400px;
   transition: max-height 0.3s ease;
+  padding-bottom: 40px;
 }
 
 .card.expanded {
@@ -49,9 +50,10 @@ body {
 }
 
 .card-body {
-  margin-top: 18px;
   margin-bottom: 2px;
   overflow-y: auto;
+  margin-top: auto;
+  flex-grow: 1;
 }
 
 /* card header */
@@ -98,6 +100,7 @@ body {
   border: none;
   outline: none;
   position: relative;
+  margin-bottom: 20px;
 }
 
 .add-item input {
@@ -237,26 +240,28 @@ input[type="text"] {
 
 /* Input field   END */
 
+/* clear items footer bottom */
 .clear-completed {
   cursor: pointer;
   color: var(--clear-completed-text-color);
   background-color: var(--clear-completed-background);
-  display: flex;
   justify-content: center;
   position: absolute;
   bottom: -10px;
   left: 0;
   right: 0;
-  margin: 0 auto;
-  max-width: 100%;
-  padding: 25px 0;
+  margin: 50px 0 0;
+  padding: 20px 0;
   font-weight: normal;
   font-size: 20px;
+  display: flex;
 }
 
 .clear-completed h5 {
   margin: 0;
 }
+
+/* clear items footer bottom END */
 
 .list-items li.drag-over {
   background-color: #f0f0f0;
