@@ -1,4 +1,4 @@
-import TodoItems from './todoData.js';
+// import TodoItems from './todoData.js';
 import {
   handleDragStart,
   handleDragOver,
@@ -15,6 +15,7 @@ import dustbinIcon from './assets/bin-icon.png';
 import './index.css';
 import addItemToTodoList from './addItem.js';
 import clearCompletedItems from './clearItem.js';
+import { getListFromStorage, saveListToStorage } from './localStorage.js';
 
 const inputField = document.querySelector('.add-item');
 
@@ -29,9 +30,21 @@ const todoList = document.getElementById('todo-list');
 todoList.addEventListener('click', (event) => {
   handleCheckboxChange(event, inputField, moreIcon, dustbinIcon);
 });
-
+const getListFromDOM = () => {
+  const listItems = Array.from(todoList.querySelectorAll('li'));
+  const items = listItems.map((listItem) => {
+    const checkbox = listItem.querySelector('input[type="checkbox"]');
+    const label = listItem.querySelector('label');
+    return {
+      description: label.textContent,
+      completed: checkbox.checked,
+    };
+  });
+  return items;
+};
 const iterateTodoItems = () => {
-  TodoItems.forEach((todoItem) => {
+  const items = getListFromStorage(); // Retrieve items from storage
+  items.forEach((todoItem) => {
     const listItem = document.createElement('li');
 
     const checkbox = document.createElement('input');
@@ -64,6 +77,8 @@ const iterateTodoItems = () => {
         label.classList.remove('crossed-out');
         listItem.classList.remove('completed');
       }
+
+      saveListToStorage(getListFromDOM()); // Update storage after the checkbox state changes
     });
 
     listItem.addEventListener('click', () => {
@@ -82,6 +97,12 @@ const iterateTodoItems = () => {
         moreIconElement.alt = 'More Icon';
         listItem.classList.remove('selected');
         listItem.classList.add('edit-mode');
+
+        // Update the description in the storage
+        const index = Array.from(todoList.children).indexOf(listItem);
+        const updatedList = getListFromStorage();
+        updatedList[index].description = listItem.querySelector('label').textContent;
+        saveListToStorage(updatedList);
       }
     });
 
@@ -89,6 +110,7 @@ const iterateTodoItems = () => {
       event.stopPropagation(); // Prevent the click event from propagating to the list item
       if (moreIconElement.src === dustbinIcon) {
         listItem.remove();
+        saveListToStorage(getListFromDOM()); // Update storage after an item is removed
       }
     });
   });
@@ -123,4 +145,7 @@ inputField.addEventListener('keydown', (event) => {
 });
 
 const clearButton = document.getElementById('clear');
-clearButton.addEventListener('click', clearCompletedItems);
+clearButton.addEventListener('click', () => {
+  clearCompletedItems();
+  saveListToStorage(getListFromDOM()); // Update storage after clearing completed items
+});

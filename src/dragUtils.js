@@ -1,3 +1,5 @@
+import { getListFromStorage, saveListToStorage } from './localStorage.js';
+
 let dragItem = null;
 
 const handleDragStart = (event) => {
@@ -40,6 +42,22 @@ const handleDrop = (event) => {
   }
 
   dropTarget.classList.remove('drag-over');
+
+  // Update the order of items in local storage
+  const updatedList = getListFromStorage();
+  const draggedItemIndex = Array.from(list.children).indexOf(listItem);
+  updatedList.splice(
+    draggedItemIndex,
+    0,
+    updatedList.splice(targetIndex, 1)[0],
+  );
+  saveListToStorage(updatedList);
+
+  // Update the indexes in the view
+  const todoListItems = list.querySelectorAll('li');
+  todoListItems.forEach((item, index) => {
+    item.dataset.index = index + 1;
+  });
 };
 
 const handleDragEnd = () => {
