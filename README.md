@@ -1,6 +1,6 @@
 <a name="readme-top"></a>
 <div align="center">
-  <img src="" alt="logo" width="140"  height="auto" />
+  <img src="app-logo.svg" alt="logo" width="140"  height="auto" />
   <br/>
 
   <h3><b>Todo-List</b></h3>
