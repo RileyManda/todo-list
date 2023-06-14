@@ -1,11 +1,30 @@
+const handleListItemClick = (event) => {
+  const listItem = event.target.closest('li');
+  const label = listItem.querySelector('label');
+
+  listItem.classList.toggle('selected');
+
+  if (listItem.classList.contains('selected')) {
+    label.contentEditable = true;
+    label.focus();
+  } else {
+    label.contentEditable = false;
+  }
+};
+const listItems = document.querySelectorAll('.list-items li');
+listItems.forEach((listItem) => {
+  listItem.addEventListener('click', handleListItemClick);
+});
 const handleCheckboxChange = (event) => {
   const listItem = event.target.closest('li');
   const label = listItem.querySelector('label');
 
   if (event.target.checked) {
     label.classList.add('crossed-out');
+    listItem.classList.add('selected');
   } else {
     label.classList.remove('crossed-out');
+    listItem.classList.remove('selected');
   }
 };
 
@@ -26,6 +45,7 @@ const renderTodoList = (todoItems) => {
     label.textContent = todoItem.description;
     if (todoItem.completed) {
       label.classList.add('crossed-out');
+      listItem.classList.add('selected');
     }
 
     listItem.appendChild(checkbox);
@@ -34,4 +54,4 @@ const renderTodoList = (todoItems) => {
   });
 };
 
-export { handleCheckboxChange, renderTodoList };
+export { handleListItemClick, handleCheckboxChange, renderTodoList };
