@@ -1,3 +1,5 @@
+import handleCheckboxChange from './checkBox.js';
+
 const handleListItemClick = (event) => {
   const listItem = event.target.closest('li');
   const label = listItem.querySelector('label');
@@ -16,17 +18,6 @@ const listItems = document.querySelectorAll('.list-items li');
 listItems.forEach((listItem) => {
   listItem.addEventListener('click', handleListItemClick);
 });
-const handleCheckboxChange = (event) => {
-  const listItem = event.target.closest('li');
-  const label = listItem.querySelector('label');
-
-  if (event.target.checked) {
-    label.classList.add('crossed-out');
-    listItem.classList.remove('selected');
-  } else {
-    label.classList.remove('crossed-out');
-  }
-};
 
 const renderTodoList = (todoItems) => {
   const todoList = document.getElementById('todo-list');
@@ -54,4 +45,4 @@ const renderTodoList = (todoItems) => {
   });
 };
 
-export { handleListItemClick, handleCheckboxChange, renderTodoList };
+export { handleListItemClick, renderTodoList };

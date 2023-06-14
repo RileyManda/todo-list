@@ -7,7 +7,7 @@ import {
   handleDrop,
   handleDragEnd,
 } from './dragUtils.js';
-import { handleCheckboxChange } from './clickUtils.js';
+import handleCheckboxChange from './checkBox.js';
 import refreshIcon from './assets/refresh-icon.png';
 import backspaceIcon from './assets/back-space-icon.png';
 import moreIcon from './assets/more-vert.png';
