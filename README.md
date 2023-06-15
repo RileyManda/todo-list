@@ -85,7 +85,7 @@
 <!-- LIVE DEMO -->
 ## <b>Live Demo 🚀</b><a name="live-demo"></a>
 
-This project is hosted on [GitHub pages](#deployment)Live application can be viewed [here](url).
+This project is hosted on [GitHub pages](#deployment)Live application can be viewed [here](https://rileymanda.github.io/todo-list/).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <hr>
