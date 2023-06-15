@@ -1,5 +1,5 @@
 import { handleDragStart } from './dragUtils.js';
-import { handleCheckboxChange } from './clickUtils.js';
+import handleCheckboxChange from './checkBox.js';
 import moreIcon from './assets/more-vert.png';
 import dustbinIcon from './assets/bin-icon.png';
 import './index.css';

@@ -1,75 +1,32 @@
-import { getListFromStorage, saveListToStorage } from './localStorage.js';
+export function handleDragStart(event) {
+  event.dataTransfer.setData('text/plain', event.target.id);
+  event.target.classList.add('dragging');
+}
 
-let dragItem = null;
-
-const handleDragStart = (event) => {
-  const moreIconElement = event.target.closest('.more-icon');
-  if (moreIconElement) {
-    dragItem = event.target.closest('li');
-    event.dataTransfer.setData('text/plain', '');
-    dragItem.classList.add('dragging');
-  } else {
-    event.preventDefault();
-  }
-};
-
-const handleDragOver = (event) => {
+export function handleDragOver(event) {
   event.preventDefault();
-};
+}
 
-const handleDragEnter = (event) => {
-  event.preventDefault();
+export function handleDragEnter(event) {
   event.target.classList.add('drag-over');
-};
+}
 
-const handleDragLeave = (event) => {
+export function handleDragLeave(event) {
   event.target.classList.remove('drag-over');
-};
+}
 
-const handleDrop = (event) => {
+export function handleDrop(event) {
   event.preventDefault();
-  const dropTarget = event.target;
-  const list = dropTarget.closest('.list-items');
-  const listItem = dragItem.closest('li');
-  const targetIndex = Array.from(list.children).indexOf(dropTarget);
+  const itemId = event.dataTransfer.getData('text/plain');
+  const item = document.getElementById(itemId);
+  const target = event.target.closest('li');
 
-  list.removeChild(listItem);
-
-  if (targetIndex >= list.children.length) {
-    list.appendChild(listItem); // Insert at the end of the list
-  } else {
-    list.insertBefore(listItem, list.children[targetIndex]); // Insert at targetIndex
+  if (target && item) {
+    target.classList.remove('drag-over');
+    target.before(item);
   }
+}
 
-  dropTarget.classList.remove('drag-over');
-
-  // Update the order of items in local storage
-  const updatedList = getListFromStorage();
-  const draggedItemIndex = Array.from(list.children).indexOf(listItem);
-  updatedList.splice(
-    draggedItemIndex,
-    0,
-    updatedList.splice(targetIndex, 1)[0],
-  );
-  saveListToStorage(updatedList);
-
-  // Update the indexes in the view
-  const todoListItems = list.querySelectorAll('li');
-  todoListItems.forEach((item, index) => {
-    item.dataset.index = index + 1;
-  });
-};
-
-const handleDragEnd = () => {
-  dragItem.classList.remove('dragging');
-  dragItem = null;
-};
-
-export {
-  handleDragStart,
-  handleDragOver,
-  handleDragEnter,
-  handleDragLeave,
-  handleDrop,
-  handleDragEnd,
-};
+export function handleDragEnd(event) {
+  event.target.classList.remove('dragging');
+}

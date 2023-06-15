@@ -1,4 +1,4 @@
-// import TodoItems from './todoData.js';
+import clearCompletedItems from './clearItems.js';
 import {
   handleDragStart,
   handleDragOver,
@@ -7,7 +7,7 @@ import {
   handleDrop,
   handleDragEnd,
 } from './dragUtils.js';
-import { handleCheckboxChange } from './clickUtils.js';
+import handleCheckboxChange from './checkBox.js';
 import refreshIcon from './assets/refresh-icon.png';
 import backspaceIcon from './assets/back-space-icon.png';
 import moreIcon from './assets/more-vert.png';
@@ -49,6 +49,9 @@ const iterateTodoItems = () => {
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.classList.add('gray-checkbox');
+    checkbox.checked = todoItem.completed;
+    checkbox.classList.add('gray-checkbox');
+    checkbox.addEventListener('change', handleCheckboxChange);
 
     const label = document.createElement('label');
     label.textContent = todoItem.description;
@@ -141,4 +144,9 @@ inputField.addEventListener('keydown', (event) => {
   if (event.key === 'Enter') {
     addItemToTodoList();
   }
+});
+const clearButton = document.getElementById('clear');
+clearButton.addEventListener('click', () => {
+  clearCompletedItems();
+  saveListToStorage(getListFromDOM()); // Update storage after clearing completed items
 });
