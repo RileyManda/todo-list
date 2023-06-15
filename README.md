@@ -37,7 +37,7 @@
 
 # <b>Todo-List Books  📖</b><a name="about-project"></a>
 
-**Todo-List** Project description
+**Todo-List** Is a simple web application that enables the user to add,edit,remove and delete tasks from the todo list.The application saves all the data to local storage and is built with Es6 syntax modularity rules and utilizes webpack.
 <br><hr>
 
 <!-- BUILT WITH -->
@@ -78,6 +78,10 @@
 ### <b>Key Features 🏷️</b> <a name="key-features"></a>
 
 - [x] **List Structure**
+- [x] **Add items**
+- [x] **Remove items**
+- [x] **Edit todo item**
+- [x] **Cross out completed todo items**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <br><hr>
@@ -85,7 +89,7 @@
 <!-- LIVE DEMO -->
 ## <b>Live Demo 🚀</b><a name="live-demo"></a>
 
-This project is hosted on [GitHub pages](#deployment)Live application can be viewed [here](https://rileymanda.github.io/todo-list/).
+This project is hosted on [GitHub pages](#deployment). The Live application can be found [here](https://rileymanda.github.io/todo-list/).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <hr>
@@ -192,11 +196,8 @@ This project was deployed using GitHub Pages. For more information about how to 
 <!-- FUTURE FEATURES -->
 ## <b>Future Features 🔭</b><a name="future-features"></a>
 
-- [ ]Adding a new item.
-- [ ]Remove a selected item
-- [ ]Mark a selected item as complete
-- [ ]Remove all items marked as complete at once
-- [ ]Reordering a selected item (as drag-and-drop)
+- [ ]There are no planned future features.
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
