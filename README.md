@@ -35,7 +35,7 @@
 <hr><hr>
 <!-- PROJECT DESCRIPTION -->
 
-# <b>Todo-List Books  📖</b><a name="about-project"></a>
+# <b>Todo-List📖</b><a name="about-project"></a>
 
 **Todo-List** Is a simple web application that enables the user to add,edit,remove and delete tasks from the todo list.The application saves all the data to local storage and is built with Es6 syntax modularity rules and utilizes webpack.
 <br><hr>
