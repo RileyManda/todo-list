@@ -42,7 +42,7 @@ const initializeTodoListApp = () => {
     });
     return items;
   };
-  const iterateTodoItems = () => {
+  const renderTodoListItems = () => {
     const items = getListFromStorage(); // Retrieve items from storage
     items.forEach((todoItem, index) => {
       const listItem = document.createElement('li');
@@ -119,7 +119,7 @@ const initializeTodoListApp = () => {
     });
   };
 
-  iterateTodoItems();
+  renderTodoListItems();
   // card header
   const header = document.querySelector('.card-header');
   const refreshIconElement = document.createElement('img');
