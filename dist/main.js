@@ -14,6 +14,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(8);
 /* harmony import */ var _addItem_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(19);
 /* harmony import */ var _localStorage_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(20);
+/* harmony import */ var _deleteItem_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(21);
+/* harmony import */ var _getListDom_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(22);
 
 
 
@@ -25,140 +27,136 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const inputField = document.querySelector('.add-item');
 
-const todoListItems = document.querySelectorAll('#todo-list li');
-todoListItems.forEach((listItem) => {
-  listItem.addEventListener('click', (event) => {
+
+const initializeTodoListApp = () => {
+  const inputField = document.querySelector('.add-item');
+
+  const todoListItems = document.querySelectorAll('#todo-list li');
+  todoListItems.forEach((listItem) => {
+    listItem.addEventListener('click', (event) => {
+      (0,_checkBox_js__WEBPACK_IMPORTED_MODULE_2__["default"])(event, inputField, _assets_more_vert_png__WEBPACK_IMPORTED_MODULE_5__, _assets_bin_icon_png__WEBPACK_IMPORTED_MODULE_6__);
+    });
+  });
+
+  const todoList = document.getElementById('todo-list');
+  todoList.addEventListener('click', (event) => {
     (0,_checkBox_js__WEBPACK_IMPORTED_MODULE_2__["default"])(event, inputField, _assets_more_vert_png__WEBPACK_IMPORTED_MODULE_5__, _assets_bin_icon_png__WEBPACK_IMPORTED_MODULE_6__);
   });
-});
 
-const todoList = document.getElementById('todo-list');
-todoList.addEventListener('click', (event) => {
-  (0,_checkBox_js__WEBPACK_IMPORTED_MODULE_2__["default"])(event, inputField, _assets_more_vert_png__WEBPACK_IMPORTED_MODULE_5__, _assets_bin_icon_png__WEBPACK_IMPORTED_MODULE_6__);
-});
-const getListFromDOM = () => {
-  const listItems = Array.from(todoList.querySelectorAll('li'));
-  const items = listItems.map((listItem) => {
-    const checkbox = listItem.querySelector('input[type="checkbox"]');
-    const label = listItem.querySelector('label');
-    return {
-      description: label.textContent,
-      completed: checkbox.checked,
-    };
+  const renderTodoListItems = () => {
+    const items = (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_9__.getListFromStorage)(); // Retrieve items from storage
+    items.forEach((todoItem, index) => {
+      const listItem = document.createElement('li');
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.classList.add('gray-checkbox');
+      checkbox.checked = todoItem.completed;
+      checkbox.classList.add('gray-checkbox');
+      checkbox.addEventListener('change', _checkBox_js__WEBPACK_IMPORTED_MODULE_2__["default"]);
+
+      const label = document.createElement('label');
+      label.textContent = todoItem.description;
+
+      const moreIconElement = document.createElement('img');
+      moreIconElement.src = _assets_more_vert_png__WEBPACK_IMPORTED_MODULE_5__;
+      moreIconElement.alt = 'More Icon';
+      moreIconElement.classList.add('more-icon');
+      moreIconElement.draggable = true;
+      moreIconElement.addEventListener('dragstart', _dragUtils_js__WEBPACK_IMPORTED_MODULE_1__.handleDragStart);
+
+      listItem.appendChild(checkbox);
+      listItem.appendChild(label);
+      listItem.appendChild(moreIconElement);
+      todoList.appendChild(listItem);
+      todoItem.index = index + 1;
+      checkbox.addEventListener('change', (event) => {
+        const listItem = event.target.closest('li');
+        const label = listItem.querySelector('label');
+
+        if (event.target.checked) {
+          label.classList.add('crossed-out');
+          listItem.classList.add('completed');
+        } else {
+          label.classList.remove('crossed-out');
+          listItem.classList.remove('completed');
+        }
+
+        (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_9__.saveListToStorage)((0,_getListDom_js__WEBPACK_IMPORTED_MODULE_11__["default"])()); // Update storage after the checkbox state changes
+      });
+
+      listItem.addEventListener('click', () => {
+        listItem.contentEditable = true;
+        listItem.focus();
+        moreIconElement.src = _assets_bin_icon_png__WEBPACK_IMPORTED_MODULE_6__;
+        moreIconElement.alt = 'Dustbin Icon';
+        listItem.classList.add('selected');
+        listItem.classList.remove('edit-mode');
+      });
+
+      listItem.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          listItem.contentEditable = false;
+          moreIconElement.src = _assets_more_vert_png__WEBPACK_IMPORTED_MODULE_5__;
+          moreIconElement.alt = 'More Icon';
+          listItem.classList.remove('selected');
+          listItem.classList.add('edit-mode');
+
+          // Update the description in the storage
+          const index = Array.from(todoList.children).indexOf(listItem);
+          const updatedList = (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_9__.getListFromStorage)();
+          updatedList[index].description = listItem.querySelector('label').textContent;
+          (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_9__.saveListToStorage)(updatedList);
+        }
+      });
+
+      moreIconElement.addEventListener('click', (event) => {
+        event.stopPropagation(); // Prevent the click event from propagating to the list item
+        if (moreIconElement.src === _assets_bin_icon_png__WEBPACK_IMPORTED_MODULE_6__) {
+          (0,_deleteItem_js__WEBPACK_IMPORTED_MODULE_10__["default"])(listItem);
+          (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_9__.saveListToStorage)((0,_getListDom_js__WEBPACK_IMPORTED_MODULE_11__["default"])()); // Update storage after an item is removed
+        }
+      });
+    });
+  };
+
+  renderTodoListItems();
+  // card header
+  const header = document.querySelector('.card-header');
+  const refreshIconElement = document.createElement('img');
+  refreshIconElement.src = _assets_refresh_icon_png__WEBPACK_IMPORTED_MODULE_3__;
+  refreshIconElement.alt = 'Refresh icon';
+  refreshIconElement.classList.add('refresh-icon');
+  header.appendChild(refreshIconElement);
+  // backspace image
+  const backspaceIconElement = document.createElement('img');
+  backspaceIconElement.src = _assets_back_space_icon_png__WEBPACK_IMPORTED_MODULE_4__;
+  backspaceIconElement.alt = 'Backspace icon';
+  backspaceIconElement.classList.add('backspace-icon');
+  // Input field image
+  inputField.appendChild(backspaceIconElement);
+  // Add event listener for the Enter key press
+  inputField.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      (0,_addItem_js__WEBPACK_IMPORTED_MODULE_8__["default"])();
+    }
   });
-  return items;
-};
-const iterateTodoItems = () => {
-  const items = (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_9__.getListFromStorage)(); // Retrieve items from storage
-  items.forEach((todoItem, index) => {
-    const listItem = document.createElement('li');
+  // Drag | drop
+  todoList.addEventListener('dragover', _dragUtils_js__WEBPACK_IMPORTED_MODULE_1__.handleDragOver);
+  todoList.addEventListener('dragenter', _dragUtils_js__WEBPACK_IMPORTED_MODULE_1__.handleDragEnter);
+  todoList.addEventListener('dragleave', _dragUtils_js__WEBPACK_IMPORTED_MODULE_1__.handleDragLeave);
+  todoList.addEventListener('drop', _dragUtils_js__WEBPACK_IMPORTED_MODULE_1__.handleDrop);
+  todoList.addEventListener('dragend', _dragUtils_js__WEBPACK_IMPORTED_MODULE_1__.handleDragEnd);
 
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.classList.add('gray-checkbox');
-    checkbox.checked = todoItem.completed;
-    checkbox.classList.add('gray-checkbox');
-    checkbox.addEventListener('change', _checkBox_js__WEBPACK_IMPORTED_MODULE_2__["default"]);
-
-    const label = document.createElement('label');
-    label.textContent = todoItem.description;
-
-    const moreIconElement = document.createElement('img');
-    moreIconElement.src = _assets_more_vert_png__WEBPACK_IMPORTED_MODULE_5__;
-    moreIconElement.alt = 'More Icon';
-    moreIconElement.classList.add('more-icon');
-    moreIconElement.draggable = true;
-    moreIconElement.addEventListener('dragstart', _dragUtils_js__WEBPACK_IMPORTED_MODULE_1__.handleDragStart);
-
-    listItem.appendChild(checkbox);
-    listItem.appendChild(label);
-    listItem.appendChild(moreIconElement);
-    todoList.appendChild(listItem);
-    todoItem.index = index + 1;
-    checkbox.addEventListener('change', (event) => {
-      const listItem = event.target.closest('li');
-      const label = listItem.querySelector('label');
-
-      if (event.target.checked) {
-        label.classList.add('crossed-out');
-        listItem.classList.add('completed');
-      } else {
-        label.classList.remove('crossed-out');
-        listItem.classList.remove('completed');
-      }
-
-      (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_9__.saveListToStorage)(getListFromDOM()); // Update storage after the checkbox state changes
-    });
-
-    listItem.addEventListener('click', () => {
-      listItem.contentEditable = true;
-      listItem.focus();
-      moreIconElement.src = _assets_bin_icon_png__WEBPACK_IMPORTED_MODULE_6__;
-      moreIconElement.alt = 'Dustbin Icon';
-      listItem.classList.add('selected');
-      listItem.classList.remove('edit-mode');
-    });
-
-    listItem.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter') {
-        listItem.contentEditable = false;
-        moreIconElement.src = _assets_more_vert_png__WEBPACK_IMPORTED_MODULE_5__;
-        moreIconElement.alt = 'More Icon';
-        listItem.classList.remove('selected');
-        listItem.classList.add('edit-mode');
-
-        // Update the description in the storage
-        const index = Array.from(todoList.children).indexOf(listItem);
-        const updatedList = (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_9__.getListFromStorage)();
-        updatedList[index].description = listItem.querySelector('label').textContent;
-        (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_9__.saveListToStorage)(updatedList);
-      }
-    });
-
-    moreIconElement.addEventListener('click', (event) => {
-      event.stopPropagation(); // Prevent the click event from propagating to the list item
-      if (moreIconElement.src === _assets_bin_icon_png__WEBPACK_IMPORTED_MODULE_6__) {
-        listItem.remove();
-        (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_9__.saveListToStorage)(getListFromDOM()); // Update storage after an item is removed
-      }
-    });
+  const clearButton = document.getElementById('clear');
+  clearButton.addEventListener('click', () => {
+    (0,_clearItems_js__WEBPACK_IMPORTED_MODULE_0__["default"])();
+    (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_9__.saveListToStorage)((0,_getListDom_js__WEBPACK_IMPORTED_MODULE_11__["default"])()); // Update storage after clearing completed items
   });
 };
 
-iterateTodoItems();
-
-const header = document.querySelector('.card-header');
-const refreshIconElement = document.createElement('img');
-refreshIconElement.src = _assets_refresh_icon_png__WEBPACK_IMPORTED_MODULE_3__;
-refreshIconElement.alt = 'Refresh icon';
-refreshIconElement.classList.add('refresh-icon');
-header.appendChild(refreshIconElement);
-
-const backspaceIconElement = document.createElement('img');
-backspaceIconElement.src = _assets_back_space_icon_png__WEBPACK_IMPORTED_MODULE_4__;
-backspaceIconElement.alt = 'Backspace icon';
-backspaceIconElement.classList.add('backspace-icon');
-
-inputField.appendChild(backspaceIconElement);
-
-todoList.addEventListener('dragover', _dragUtils_js__WEBPACK_IMPORTED_MODULE_1__.handleDragOver);
-todoList.addEventListener('dragenter', _dragUtils_js__WEBPACK_IMPORTED_MODULE_1__.handleDragEnter);
-todoList.addEventListener('dragleave', _dragUtils_js__WEBPACK_IMPORTED_MODULE_1__.handleDragLeave);
-todoList.addEventListener('drop', _dragUtils_js__WEBPACK_IMPORTED_MODULE_1__.handleDrop);
-todoList.addEventListener('dragend', _dragUtils_js__WEBPACK_IMPORTED_MODULE_1__.handleDragEnd);
-// Add event listener for the Enter key press
-inputField.addEventListener('keydown', (event) => {
-  if (event.key === 'Enter') {
-    (0,_addItem_js__WEBPACK_IMPORTED_MODULE_8__["default"])();
-  }
-});
-const clearButton = document.getElementById('clear');
-clearButton.addEventListener('click', () => {
-  (0,_clearItems_js__WEBPACK_IMPORTED_MODULE_0__["default"])();
-  (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_9__.saveListToStorage)(getListFromDOM()); // Update storage after clearing completed items
-});
+initializeTodoListApp();
 
 
 /***/ }),
@@ -1186,6 +1184,51 @@ const saveListToStorage = (items) => {
   const itemsToSave = items.map(({ index, ...rest }) => rest);
   localStorage.setItem(storageKey, JSON.stringify(itemsToSave));
 };
+
+
+/***/ }),
+/* 21 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _localStorage_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(20);
+/* harmony import */ var _getListDom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(22);
+
+
+
+const deleteItem = (listItem) => {
+  listItem.remove();
+  (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_0__.saveListToStorage)(_getListDom_js__WEBPACK_IMPORTED_MODULE_1__["default"]); // Update storage after an item is removed
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (deleteItem);
+
+
+/***/ }),
+/* 22 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const getListFromDOM = () => {
+  const todoList = document.getElementById('todo-list');
+  const listItems = Array.from(todoList.querySelectorAll('li'));
+  const items = listItems.map((listItem) => {
+    const checkbox = listItem.querySelector('input[type="checkbox"]');
+    const label = listItem.querySelector('label');
+    return {
+      description: label.textContent,
+      completed: checkbox.checked,
+    };
+  });
+  return items;
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getListFromDOM);
 
 
 /***/ })

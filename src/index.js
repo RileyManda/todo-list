@@ -15,6 +15,8 @@ import dustbinIcon from './assets/bin-icon.png';
 import './index.css';
 import addItemToTodoList from './addItem.js';
 import { getListFromStorage, saveListToStorage } from './localStorage.js';
+import deleteItem from './deleteItem.js';
+import getListFromDOM from './getListDom.js';
 
 const initializeTodoListApp = () => {
   const inputField = document.querySelector('.add-item');
@@ -30,18 +32,7 @@ const initializeTodoListApp = () => {
   todoList.addEventListener('click', (event) => {
     handleCheckboxChange(event, inputField, moreIcon, dustbinIcon);
   });
-  const getListFromDOM = () => {
-    const listItems = Array.from(todoList.querySelectorAll('li'));
-    const items = listItems.map((listItem) => {
-      const checkbox = listItem.querySelector('input[type="checkbox"]');
-      const label = listItem.querySelector('label');
-      return {
-        description: label.textContent,
-        completed: checkbox.checked,
-      };
-    });
-    return items;
-  };
+
   const renderTodoListItems = () => {
     const items = getListFromStorage(); // Retrieve items from storage
     items.forEach((todoItem, index) => {
@@ -112,7 +103,7 @@ const initializeTodoListApp = () => {
       moreIconElement.addEventListener('click', (event) => {
         event.stopPropagation(); // Prevent the click event from propagating to the list item
         if (moreIconElement.src === dustbinIcon) {
-          listItem.remove();
+          deleteItem(listItem);
           saveListToStorage(getListFromDOM()); // Update storage after an item is removed
         }
       });
