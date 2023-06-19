@@ -4,7 +4,6 @@ import moreIcon from './assets/more-vert.png';
 import dustbinIcon from './assets/bin-icon.png';
 
 const updateList = (inputValue) => {
-  const inputField = document.querySelector('.add-item input');
   const listItem = document.createElement('li');
 
   const checkbox = document.createElement('input');
@@ -26,9 +25,10 @@ const updateList = (inputValue) => {
   listItem.appendChild(moreIconElement);
 
   listItem.addEventListener('click', (event) => {
-    handleCheckboxChange(event, inputField, moreIcon, dustbinIcon);
+    handleCheckboxChange(event, moreIcon, dustbinIcon);
   });
 
   return listItem;
 };
+
 export default updateList;

@@ -1,7 +1,6 @@
 import './index.css';
 import { getListFromStorage, saveListToStorage } from './localStorage.js';
-
-import updateToDoList from './updateList.js';
+import updateList from './updateList.js';
 
 const addItem = () => {
   const inputField = document.querySelector('.add-item input');
@@ -9,7 +8,7 @@ const addItem = () => {
 
   if (inputValue) {
     const todoList = document.getElementById('todo-list');
-    const listItem = updateToDoList(inputValue);
+    const listItem = updateList(inputValue);
 
     todoList.appendChild(listItem);
 
