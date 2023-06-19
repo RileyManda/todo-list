@@ -13,7 +13,7 @@ import backspaceIcon from './assets/back-space-icon.png';
 import moreIcon from './assets/more-vert.png';
 import dustbinIcon from './assets/bin-icon.png';
 import './index.css';
-import addItemToTodoList from './addItem.js';
+import addItem from './addItem.js';
 import { getListFromStorage, saveListToStorage } from './localStorage.js';
 import deleteItem from './deleteItem.js';
 import getListFromDOM from './getListDom.js';
@@ -128,7 +128,7 @@ const initializeTodoListApp = () => {
   // Add event listener for the Enter key press
   inputField.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
-      addItemToTodoList();
+      addItem();
     }
   });
   // Drag | drop
