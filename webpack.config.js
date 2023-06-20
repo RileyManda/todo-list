@@ -1,5 +1,4 @@
 const path = require('path');
-// eslint-disable-next-line import/no-extraneous-dependencies
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -24,7 +23,7 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: ['node_modules'],
+        exclude: [path.resolve(__dirname, 'node_modules')],
         use: ['babel-loader'],
       },
       {
