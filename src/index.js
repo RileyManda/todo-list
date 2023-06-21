@@ -24,7 +24,7 @@ const initializeTodoListApp = () => {
   const inputField = document.querySelector('.add-item input');
   const todoList = document.getElementById('todo-list');
   const refreshIconElement = document.createElement('img');
-  const backspaceIconElement = document.createElement('img');
+  const backspaceIconImg = document.createElement('img');
 
   const renderTodoListItem = (todoItem, index) => {
     const listItem = document.createElement('li');
@@ -40,14 +40,14 @@ const initializeTodoListApp = () => {
     const label = document.createElement('label');
     label.textContent = todoItem.description;
 
-    const moreIconElement = document.createElement('img');
-    moreIconElement.src = moreIcon;
-    moreIconElement.alt = 'More Icon';
-    moreIconElement.classList.add('more-icon');
+    const moreIconImg = document.createElement('img');
+    moreIconImg.src = moreIcon;
+    moreIconImg.alt = 'More Icon';
+    moreIconImg.classList.add('more-icon');
 
     listItem.appendChild(checkbox);
     listItem.appendChild(label);
-    listItem.appendChild(moreIconElement);
+    listItem.appendChild(moreIconImg);
     todoList.appendChild(listItem);
 
     checkbox.addEventListener('change', () => {
@@ -59,8 +59,8 @@ const initializeTodoListApp = () => {
     listItem.addEventListener('click', () => {
       listItem.contentEditable = true;
       listItem.focus();
-      moreIconElement.src = dustbinIcon;
-      moreIconElement.alt = 'Dustbin Icon';
+      moreIconImg.src = dustbinIcon;
+      moreIconImg.alt = 'Dustbin Icon';
       listItem.classList.add('selected');
       listItem.classList.remove('edit-mode');
     });
@@ -68,8 +68,8 @@ const initializeTodoListApp = () => {
     listItem.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
         listItem.contentEditable = false;
-        moreIconElement.src = moreIcon;
-        moreIconElement.alt = 'More Icon';
+        moreIconImg.src = moreIcon;
+        moreIconImg.alt = 'More Icon';
         listItem.classList.remove('selected');
         listItem.classList.add('edit-mode');
 
@@ -79,9 +79,9 @@ const initializeTodoListApp = () => {
       }
     });
 
-    moreIconElement.addEventListener('click', (event) => {
+    moreIconImg.addEventListener('click', (event) => {
       event.stopPropagation();
-      if (moreIconElement.src === dustbinIcon) {
+      if (moreIconImg.src === dustbinIcon) {
         deleteItem(listItem);
         saveListToStorage(getListFromDOM());
       }
@@ -133,10 +133,10 @@ const initializeTodoListApp = () => {
   refreshIconElement.classList.add('refresh-icon');
   header.appendChild(refreshIconElement);
 
-  backspaceIconElement.src = backspaceIcon;
-  backspaceIconElement.alt = 'Backspace icon';
-  backspaceIconElement.classList.add('backspace-icon');
-  inputField.appendChild(backspaceIconElement);
+  backspaceIconImg.src = backspaceIcon;
+  backspaceIconImg.alt = 'Backspace icon';
+  backspaceIconImg.classList.add('backspace-icon');
+  inputField.appendChild(backspaceIconImg);
 };
 
 initializeTodoListApp();
