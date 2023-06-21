@@ -1,7 +1,6 @@
 import { handleDragStart } from './dragUtils.js';
 import handleCheckboxChange from './checkBox.js';
-import moreIcon from './assets/more-vert.png';
-import dustbinIcon from './assets/bin-icon.png';
+import { moreIcon, dustbinIcon } from './assets/icons.js';
 
 const updateList = (inputValue) => {
   const listItem = document.createElement('li');
@@ -13,12 +12,23 @@ const updateList = (inputValue) => {
   const label = document.createElement('label');
   label.textContent = inputValue;
 
-  const moreIconElement = document.createElement('img');
-  moreIconElement.src = moreIcon;
-  moreIconElement.alt = 'More Icon';
-  moreIconElement.classList.add('more-icon');
-  moreIconElement.draggable = true;
-  moreIconElement.addEventListener('dragstart', handleDragStart);
+  const createIconElement = (src, alt, className, draggable, eventListener) => {
+    const iconElement = document.createElement('img');
+    iconElement.src = src;
+    iconElement.alt = alt;
+    iconElement.classList.add(className);
+    iconElement.draggable = draggable;
+    iconElement.addEventListener('dragstart', eventListener);
+    return iconElement;
+  };
+
+  const moreIconElement = createIconElement(
+    moreIcon,
+    'More Icon',
+    'more-icon',
+    true,
+    handleDragStart,
+  );
 
   listItem.appendChild(checkbox);
   listItem.appendChild(label);

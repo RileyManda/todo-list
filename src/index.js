@@ -8,10 +8,13 @@ import {
   handleDragEnd,
 } from './dragUtils.js';
 import handleCheckboxChange from './checkBox.js';
-import refreshIcon from './assets/refresh-icon.png';
-import backspaceIcon from './assets/back-space-icon.png';
-import moreIcon from './assets/more-vert.png';
-import dustbinIcon from './assets/bin-icon.png';
+import {
+  refreshIcon,
+  backspaceIcon,
+  moreIcon,
+  dustbinIcon,
+} from './assets/icons.js';
+
 import './index.css';
 import addItem from './addItem.js';
 import { getListFromStorage, saveListToStorage } from './localStorage.js';
