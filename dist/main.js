@@ -6,13 +6,19 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _clearItems_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _dragUtils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
-/* harmony import */ var _checkBox_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
-/* harmony import */ var _assets_icons_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4);
-/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9);
-/* harmony import */ var _addItem_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(20);
-/* harmony import */ var _localStorage_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(21);
-/* harmony import */ var _deleteItem_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(22);
-/* harmony import */ var _getListDom_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(23);
+/* harmony import */ var _checkBox_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
+/* harmony import */ var _assets_refresh_icon_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6);
+/* harmony import */ var _assets_back_space_icon_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(7);
+/* harmony import */ var _assets_more_vert_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(8);
+/* harmony import */ var _assets_bin_icon_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(9);
+/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(10);
+/* harmony import */ var _addItem_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(21);
+/* harmony import */ var _localStorage_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(3);
+/* harmony import */ var _deleteItem_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(22);
+/* harmony import */ var _getListDom_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(4);
+
+
+
 
 
 
@@ -28,7 +34,7 @@ var initializeTodoListApp = function initializeTodoListApp() {
   var refreshIconElement = document.createElement('img');
   var backspaceIconElement = document.createElement('img');
   var renderTodoListItems = function renderTodoListItems() {
-    var items = (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_6__.getListFromStorage)(); // Retrieve items from storage
+    var items = (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_9__.getListFromStorage)(); // Retrieve items from storage
     items.forEach(function (todoItem, index) {
       var listItem = document.createElement('li');
       var checkbox = document.createElement('input');
@@ -39,7 +45,7 @@ var initializeTodoListApp = function initializeTodoListApp() {
       var label = document.createElement('label');
       label.textContent = todoItem.description;
       var moreIconElement = document.createElement('img');
-      moreIconElement.src = _assets_icons_js__WEBPACK_IMPORTED_MODULE_3__.moreIcon;
+      moreIconElement.src = _assets_more_vert_png__WEBPACK_IMPORTED_MODULE_5__;
       moreIconElement.alt = 'More Icon';
       moreIconElement.classList.add('more-icon');
       moreIconElement.draggable = true;
@@ -58,13 +64,13 @@ var initializeTodoListApp = function initializeTodoListApp() {
           label.classList.remove('crossed-out');
           listItem.classList.remove('completed');
         }
-        (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_6__.saveListToStorage)((0,_getListDom_js__WEBPACK_IMPORTED_MODULE_8__["default"])()); // Update storage after the checkbox state changes
+        (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_9__.saveListToStorage)((0,_getListDom_js__WEBPACK_IMPORTED_MODULE_11__["default"])()); // Update storage after the checkbox state changes
       });
 
       listItem.addEventListener('click', function () {
         listItem.contentEditable = true;
         listItem.focus();
-        moreIconElement.src = _assets_icons_js__WEBPACK_IMPORTED_MODULE_3__.dustbinIcon;
+        moreIconElement.src = _assets_bin_icon_png__WEBPACK_IMPORTED_MODULE_6__;
         moreIconElement.alt = 'Dustbin Icon';
         listItem.classList.add('selected');
         listItem.classList.remove('edit-mode');
@@ -72,23 +78,23 @@ var initializeTodoListApp = function initializeTodoListApp() {
       listItem.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
           listItem.contentEditable = false;
-          moreIconElement.src = _assets_icons_js__WEBPACK_IMPORTED_MODULE_3__.moreIcon;
+          moreIconElement.src = _assets_more_vert_png__WEBPACK_IMPORTED_MODULE_5__;
           moreIconElement.alt = 'More Icon';
           listItem.classList.remove('selected');
           listItem.classList.add('edit-mode');
 
           // Update the description in the storage
           var _index = Array.from(todoList.children).indexOf(listItem);
-          var updatedList = (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_6__.getListFromStorage)();
+          var updatedList = (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_9__.getListFromStorage)();
           updatedList[_index].description = listItem.querySelector('label').textContent;
-          (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_6__.saveListToStorage)(updatedList);
+          (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_9__.saveListToStorage)(updatedList);
         }
       });
       moreIconElement.addEventListener('click', function (event) {
         event.stopPropagation(); // Prevent the click event from propagating to the list item
-        if (moreIconElement.src === _assets_icons_js__WEBPACK_IMPORTED_MODULE_3__.dustbinIcon) {
-          (0,_deleteItem_js__WEBPACK_IMPORTED_MODULE_7__["default"])(listItem);
-          (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_6__.saveListToStorage)((0,_getListDom_js__WEBPACK_IMPORTED_MODULE_8__["default"])()); // Update storage after an item is removed
+        if (moreIconElement.src === _assets_bin_icon_png__WEBPACK_IMPORTED_MODULE_6__) {
+          (0,_deleteItem_js__WEBPACK_IMPORTED_MODULE_10__["default"])(listItem);
+          (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_9__.saveListToStorage)((0,_getListDom_js__WEBPACK_IMPORTED_MODULE_11__["default"])()); // Update storage after an item is removed
         }
       });
 
@@ -98,7 +104,7 @@ var initializeTodoListApp = function initializeTodoListApp() {
   renderTodoListItems();
   var handleAddItem = function handleAddItem() {
     var inputValue = inputField.value.trim();
-    var newItem = (0,_addItem_js__WEBPACK_IMPORTED_MODULE_5__["default"])(inputValue);
+    var newItem = (0,_addItem_js__WEBPACK_IMPORTED_MODULE_8__["default"])(inputValue);
     if (newItem) {
       var listItem = document.createElement('li');
       var checkbox = document.createElement('input');
@@ -107,7 +113,7 @@ var initializeTodoListApp = function initializeTodoListApp() {
       var label = document.createElement('label');
       label.textContent = newItem.description;
       var moreIconElement = document.createElement('img');
-      moreIconElement.src = _assets_icons_js__WEBPACK_IMPORTED_MODULE_3__.moreIcon;
+      moreIconElement.src = _assets_more_vert_png__WEBPACK_IMPORTED_MODULE_5__;
       moreIconElement.alt = 'More Icon';
       moreIconElement.classList.add('more-icon');
       moreIconElement.draggable = true;
@@ -126,13 +132,13 @@ var initializeTodoListApp = function initializeTodoListApp() {
           label.classList.remove('crossed-out');
           listItem.classList.remove('completed');
         }
-        (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_6__.saveListToStorage)((0,_getListDom_js__WEBPACK_IMPORTED_MODULE_8__["default"])()); // Update storage after the checkbox state changes
+        (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_9__.saveListToStorage)((0,_getListDom_js__WEBPACK_IMPORTED_MODULE_11__["default"])()); // Update storage after the checkbox state changes
       });
 
       listItem.addEventListener('click', function () {
         listItem.contentEditable = true;
         listItem.focus();
-        moreIconElement.src = _assets_icons_js__WEBPACK_IMPORTED_MODULE_3__.dustbinIcon;
+        moreIconElement.src = _assets_bin_icon_png__WEBPACK_IMPORTED_MODULE_6__;
         moreIconElement.alt = 'Dustbin Icon';
         listItem.classList.add('selected');
         listItem.classList.remove('edit-mode');
@@ -140,23 +146,23 @@ var initializeTodoListApp = function initializeTodoListApp() {
       listItem.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
           listItem.contentEditable = false;
-          moreIconElement.src = _assets_icons_js__WEBPACK_IMPORTED_MODULE_3__.moreIcon;
+          moreIconElement.src = _assets_more_vert_png__WEBPACK_IMPORTED_MODULE_5__;
           moreIconElement.alt = 'More Icon';
           listItem.classList.remove('selected');
           listItem.classList.add('edit-mode');
 
           // Update the description in the storage
           var index = Array.from(todoList.children).indexOf(listItem);
-          var updatedList = (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_6__.getListFromStorage)();
+          var updatedList = (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_9__.getListFromStorage)();
           updatedList[index].description = listItem.querySelector('label').textContent;
-          (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_6__.saveListToStorage)(updatedList);
+          (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_9__.saveListToStorage)(updatedList);
         }
       });
       moreIconElement.addEventListener('click', function (event) {
         event.stopPropagation(); // Prevent the click event from propagating to the list item
-        if (moreIconElement.src === _assets_icons_js__WEBPACK_IMPORTED_MODULE_3__.dustbinIcon) {
-          (0,_deleteItem_js__WEBPACK_IMPORTED_MODULE_7__["default"])(listItem);
-          (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_6__.saveListToStorage)((0,_getListDom_js__WEBPACK_IMPORTED_MODULE_8__["default"])()); // Update storage after an item is removed
+        if (moreIconElement.src === _assets_bin_icon_png__WEBPACK_IMPORTED_MODULE_6__) {
+          (0,_deleteItem_js__WEBPACK_IMPORTED_MODULE_10__["default"])(listItem);
+          (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_9__.saveListToStorage)((0,_getListDom_js__WEBPACK_IMPORTED_MODULE_11__["default"])()); // Update storage after an item is removed
         }
       });
     }
@@ -181,18 +187,18 @@ var initializeTodoListApp = function initializeTodoListApp() {
   var clearButton = document.getElementById('clear');
   clearButton.addEventListener('click', function () {
     (0,_clearItems_js__WEBPACK_IMPORTED_MODULE_0__["default"])();
-    (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_6__.saveListToStorage)((0,_getListDom_js__WEBPACK_IMPORTED_MODULE_8__["default"])()); // Update storage after clearing completed items
+    (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_9__.saveListToStorage)((0,_getListDom_js__WEBPACK_IMPORTED_MODULE_11__["default"])()); // Update storage after clearing completed items
   });
 
   // Other initialization code (not included in the previous response)
 
   // card header
   var header = document.querySelector('.card-header');
-  refreshIconElement.src = _assets_icons_js__WEBPACK_IMPORTED_MODULE_3__.refreshIcon;
+  refreshIconElement.src = _assets_refresh_icon_png__WEBPACK_IMPORTED_MODULE_3__;
   refreshIconElement.alt = 'Refresh icon';
   refreshIconElement.classList.add('refresh-icon');
   header.appendChild(refreshIconElement);
-  backspaceIconElement.src = _assets_icons_js__WEBPACK_IMPORTED_MODULE_3__.backspaceIcon;
+  backspaceIconElement.src = _assets_back_space_icon_png__WEBPACK_IMPORTED_MODULE_4__;
   backspaceIconElement.alt = 'Backspace icon';
   backspaceIconElement.classList.add('backspace-icon');
   inputField.appendChild(backspaceIconElement);
@@ -232,6 +238,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   handleDragStart: () => (/* binding */ handleDragStart),
 /* harmony export */   handleDrop: () => (/* binding */ handleDrop)
 /* harmony export */ });
+/* harmony import */ var _localStorage_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _getListDom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+
+
 function handleDragStart(event) {
   event.dataTransfer.setData('text/plain', event.target.id);
   event.target.classList.add('dragging');
@@ -256,11 +266,114 @@ function handleDrop(event) {
   }
 }
 function handleDragEnd(event) {
-  event.target.classList.remove('dragging');
+  var draggedListItem = document.querySelector('.dragging');
+  var droppedListItem = event.target.closest('li');
+  if (draggedListItem && droppedListItem) {
+    // Check if the dragged list item is a direct child of todoList
+    var todoList = document.getElementById('todo-list');
+    var isDraggedChild = todoList.contains(draggedListItem);
+    console.log('Dragged ListItem:', draggedListItem);
+    console.log('Dropped ListItem:', droppedListItem);
+    console.log('Is Dragged Child:', isDraggedChild);
+    if (isDraggedChild) {
+      // Swap the positions of the dragged and dropped list items
+      var listItems = Array.from(todoList.children);
+      var draggedIndex = listItems.indexOf(draggedListItem);
+      var droppedIndex = listItems.indexOf(droppedListItem);
+      console.log('Dragged Index:', draggedIndex);
+      console.log('Dropped Index:', droppedIndex);
+      if (draggedIndex !== droppedIndex) {
+        // Remove the dragging class from the dragged list item
+        draggedListItem.classList.remove('dragging');
+
+        // Remove the drag-over class from the dropped list item
+        droppedListItem.classList.remove('drag-over');
+
+        // Reorder the list items
+        todoList.removeChild(draggedListItem);
+        todoList.insertBefore(draggedListItem, droppedListItem);
+
+        // Update the index labels
+        var updatedListItems = Array.from(todoList.children);
+        updatedListItems.forEach(function (listItem, index) {
+          var indexLabel = listItem.querySelector('.index');
+          if (indexLabel) {
+            indexLabel.textContent = "".concat(index + 1, ".");
+          }
+        });
+
+        // Save the updated list to storage
+        var updatedList = (0,_getListDom_js__WEBPACK_IMPORTED_MODULE_1__["default"])();
+        (0,_localStorage_js__WEBPACK_IMPORTED_MODULE_0__.saveListToStorage)(updatedList);
+      }
+    }
+  }
 }
 
 /***/ }),
 /* 3 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getListFromStorage: () => (/* binding */ getListFromStorage),
+/* harmony export */   saveListToStorage: () => (/* binding */ saveListToStorage)
+/* harmony export */ });
+var _excluded = ["index"];
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+var storageKey = 'todolist';
+var getListFromStorage = function getListFromStorage() {
+  var items = JSON.parse(localStorage.getItem(storageKey));
+  if (items) {
+    return items.map(function (item, index) {
+      return _objectSpread(_objectSpread({}, item), {}, {
+        index: index + 1
+      });
+    });
+  }
+  return [];
+};
+var saveListToStorage = function saveListToStorage(items) {
+  var itemsToSave = items.map(function (_ref) {
+    var index = _ref.index,
+      rest = _objectWithoutProperties(_ref, _excluded);
+    return rest;
+  });
+  localStorage.setItem(storageKey, JSON.stringify(itemsToSave));
+};
+
+/***/ }),
+/* 4 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var getListFromDOM = function getListFromDOM() {
+  var todoList = document.getElementById('todo-list');
+  var listItems = Array.from(todoList.querySelectorAll('li'));
+  var items = listItems.map(function (listItem) {
+    var checkbox = listItem.querySelector('input[type="checkbox"]');
+    var label = listItem.querySelector('label');
+    return {
+      description: label.textContent,
+      completed: checkbox.checked
+    };
+  });
+  return items;
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getListFromDOM);
+
+/***/ }),
+/* 5 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -280,71 +393,50 @@ var handleCheckboxChange = function handleCheckboxChange(event) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (handleCheckboxChange);
 
 /***/ }),
-/* 4 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   backspaceIcon: () => (/* reexport default export from named module */ _back_space_icon_png__WEBPACK_IMPORTED_MODULE_3__),
-/* harmony export */   dustbinIcon: () => (/* reexport default export from named module */ _bin_icon_png__WEBPACK_IMPORTED_MODULE_1__),
-/* harmony export */   moreIcon: () => (/* reexport default export from named module */ _more_vert_png__WEBPACK_IMPORTED_MODULE_0__),
-/* harmony export */   refreshIcon: () => (/* reexport default export from named module */ _refresh_icon_png__WEBPACK_IMPORTED_MODULE_2__)
-/* harmony export */ });
-/* harmony import */ var _more_vert_png__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
-/* harmony import */ var _bin_icon_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
-/* harmony import */ var _refresh_icon_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
-/* harmony import */ var _back_space_icon_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8);
-
-
-
-
-
-
-/***/ }),
-/* 5 */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-module.exports = __webpack_require__.p + "59c18bd77893b72a74f3.png";
-
-/***/ }),
 /* 6 */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-module.exports = __webpack_require__.p + "a92fd041afbe0f2cf744.png";
-
-/***/ }),
-/* 7 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 module.exports = __webpack_require__.p + "0a19d2ef516ded0aa5e4.png";
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 module.exports = __webpack_require__.p + "ba44d9e97bc7fa267a05.png";
 
 /***/ }),
+/* 8 */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "59c18bd77893b72a74f3.png";
+
+/***/ }),
 /* 9 */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "a92fd041afbe0f2cf744.png";
+
+/***/ }),
+/* 10 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(10);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(11);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(13);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(14);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(14);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(15);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(15);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(16);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_index_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(16);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_index_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(17);
 
       
       
@@ -375,7 +467,7 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ ((module) => {
 
 
@@ -464,7 +556,7 @@ module.exports = function (list, options) {
 };
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ ((module) => {
 
 
@@ -530,7 +622,7 @@ function domAPI(options) {
 module.exports = domAPI;
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ ((module) => {
 
 
@@ -569,7 +661,7 @@ function insertBySelector(insert, style) {
 module.exports = insertBySelector;
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 
@@ -584,7 +676,7 @@ function setAttributesWithoutAttributes(styleElement) {
 module.exports = setAttributesWithoutAttributes;
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ ((module) => {
 
 
@@ -599,7 +691,7 @@ function insertStyleElement(options) {
 module.exports = insertStyleElement;
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ ((module) => {
 
 
@@ -618,25 +710,25 @@ function styleTagTransform(css, styleElement) {
 module.exports = styleTagTransform;
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(17);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(18);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(18);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(19);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(19);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2__);
 // Imports
 
 
 
-var ___CSS_LOADER_URL_IMPORT_0___ = new URL(/* asset import */ __webpack_require__(5), __webpack_require__.b);
-var ___CSS_LOADER_URL_IMPORT_1___ = new URL(/* asset import */ __webpack_require__(6), __webpack_require__.b);
+var ___CSS_LOADER_URL_IMPORT_0___ = new URL(/* asset import */ __webpack_require__(8), __webpack_require__.b);
+var ___CSS_LOADER_URL_IMPORT_1___ = new URL(/* asset import */ __webpack_require__(9), __webpack_require__.b);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_0___);
 var ___CSS_LOADER_URL_REPLACEMENT_1___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_1___);
@@ -924,6 +1016,26 @@ input[type="text"] {
   transition: cursor;
 }
 
+/* .drag-over {
+  background-color: #f0f0f0;
+} */
+
+li[draggable="true"] {
+  cursor: move;
+}
+
+/* During Drag */
+li[draggable="true"].dragging {
+  opacity: 0.5;
+}
+
+/* List Item Index */
+.index {
+  font-size: 14px;
+  color: #999;
+  margin-right: 10px;
+}
+
 #todo-list {
   display: flex;
   flex-direction: column;
@@ -1010,7 +1122,7 @@ input[type="text"] {
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ ((module) => {
 
 
@@ -1020,7 +1132,7 @@ module.exports = function (i) {
 };
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ ((module) => {
 
 
@@ -1110,7 +1222,7 @@ module.exports = function (cssWithMappingToString) {
 };
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ ((module) => {
 
 
@@ -1141,14 +1253,14 @@ module.exports = function (url, options) {
 };
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _localStorage_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(21);
+/* harmony import */ var _localStorage_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
 
 var addItem = function addItem(inputValue) {
   if (inputValue) {
@@ -1169,45 +1281,6 @@ var addItem = function addItem(inputValue) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (addItem);
 
 /***/ }),
-/* 21 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getListFromStorage: () => (/* binding */ getListFromStorage),
-/* harmony export */   saveListToStorage: () => (/* binding */ saveListToStorage)
-/* harmony export */ });
-var _excluded = ["index"];
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-var storageKey = 'todolist';
-var getListFromStorage = function getListFromStorage() {
-  var items = JSON.parse(localStorage.getItem(storageKey));
-  if (items) {
-    return items.map(function (item, index) {
-      return _objectSpread(_objectSpread({}, item), {}, {
-        index: index + 1
-      });
-    });
-  }
-  return [];
-};
-var saveListToStorage = function saveListToStorage(items) {
-  var itemsToSave = items.map(function (_ref) {
-    var index = _ref.index,
-      rest = _objectWithoutProperties(_ref, _excluded);
-    return rest;
-  });
-  localStorage.setItem(storageKey, JSON.stringify(itemsToSave));
-};
-
-/***/ }),
 /* 22 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -1215,8 +1288,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _localStorage_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(21);
-/* harmony import */ var _getListDom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(23);
+/* harmony import */ var _localStorage_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _getListDom_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
 
 
 var deleteItem = function deleteItem(listItem) {
@@ -1225,29 +1298,6 @@ var deleteItem = function deleteItem(listItem) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (deleteItem);
-
-/***/ }),
-/* 23 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-var getListFromDOM = function getListFromDOM() {
-  var todoList = document.getElementById('todo-list');
-  var listItems = Array.from(todoList.querySelectorAll('li'));
-  var items = listItems.map(function (listItem) {
-    var checkbox = listItem.querySelector('input[type="checkbox"]');
-    var label = listItem.querySelector('label');
-    return {
-      description: label.textContent,
-      completed: checkbox.checked
-    };
-  });
-  return items;
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getListFromDOM);
 
 /***/ })
 ],
