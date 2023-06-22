@@ -120,12 +120,17 @@ const initializeTodoListApp = () => {
   todoList.addEventListener('drop', handleDrop);
   todoList.addEventListener('dragend', handleDragEnd);
 
+  const getCheckedItems = () => Array.from(
+    document.querySelectorAll(
+      '.list-items li input[type="checkbox"]:checked',
+    ),
+  );
   const clearButton = document.getElementById('clear');
   clearButton.addEventListener('click', () => {
-    clearCompletedItems();
+    const completedItems = getCheckedItems();
+    clearCompletedItems(completedItems);
     saveListToStorage(getListFromDOM());
   });
-
   const header = document.querySelector('.card-header');
 
   refreshIconElement.src = refreshIcon;

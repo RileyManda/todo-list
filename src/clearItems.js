@@ -1,8 +1,4 @@
-const clearCompletedItems = () => {
-  const completedItems = Array.from(
-    document.querySelectorAll('.list-items li input[type="checkbox"]:checked'),
-  );
-
+const clearCompletedItems = (completedItems) => {
   completedItems
     .map((item) => item.closest('li'))
     .filter((li) => li)
