@@ -8,10 +8,12 @@ import {
   handleDragEnd,
 } from './dragUtils.js';
 import handleCheckboxChange from './checkBox.js';
-import refreshIcon from './assets/refresh-icon.png';
-import backspaceIcon from './assets/back-space-icon.png';
-import moreIcon from './assets/more-vert.png';
-import dustbinIcon from './assets/bin-icon.png';
+import {
+  moreIcon,
+  dustbinIcon,
+  backspaceIcon,
+  refreshIcon,
+} from './assets/icons.js';
 import './index.css';
 import addItem from './addItem.js';
 import { getListFromStorage, saveListToStorage } from './localStorage.js';
@@ -19,130 +21,127 @@ import deleteItem from './deleteItem.js';
 import getListFromDOM from './getListDom.js';
 
 const initializeTodoListApp = () => {
-  const inputField = document.querySelector('.add-item');
-
-  const todoListItems = document.querySelectorAll('#todo-list li');
-  todoListItems.forEach((listItem) => {
-    listItem.addEventListener('click', (event) => {
-      handleCheckboxChange(event, inputField, moreIcon, dustbinIcon);
-    });
-  });
-
+  const inputField = document.querySelector('.add-item input');
   const todoList = document.getElementById('todo-list');
-  todoList.addEventListener('click', (event) => {
-    handleCheckboxChange(event, inputField, moreIcon, dustbinIcon);
-  });
+  const refreshIconElement = document.createElement('img');
+  const backspaceIconImg = document.createElement('img');
+
+  const renderTodoListItem = (todoItem, index) => {
+    const listItem = document.createElement('li');
+    listItem.draggable = true;
+    listItem.addEventListener('dragstart', handleDragStart);
+
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.classList.add('gray-checkbox');
+    checkbox.checked = todoItem.completed;
+    checkbox.addEventListener('change', handleCheckboxChange);
+
+    const label = document.createElement('label');
+    label.textContent = todoItem.description;
+
+    const moreIconImg = document.createElement('img');
+    moreIconImg.src = moreIcon;
+    moreIconImg.alt = 'More Icon';
+    moreIconImg.classList.add('more-icon');
+
+    listItem.appendChild(checkbox);
+    listItem.appendChild(label);
+    listItem.appendChild(moreIconImg);
+    todoList.appendChild(listItem);
+
+    checkbox.addEventListener('change', () => {
+      label.classList.toggle('crossed-out');
+      listItem.classList.toggle('completed');
+      saveListToStorage(getListFromDOM());
+    });
+
+    listItem.addEventListener('click', () => {
+      listItem.contentEditable = true;
+      listItem.focus();
+      moreIconImg.src = dustbinIcon;
+      moreIconImg.alt = 'Dustbin Icon';
+      listItem.classList.add('selected');
+      listItem.classList.remove('edit-mode');
+    });
+
+    listItem.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        listItem.contentEditable = false;
+        moreIconImg.src = moreIcon;
+        moreIconImg.alt = 'More Icon';
+        listItem.classList.remove('selected');
+        listItem.classList.add('edit-mode');
+
+        const updatedList = getListFromStorage();
+        updatedList[index].description = listItem.querySelector('label').textContent;
+        saveListToStorage(updatedList);
+      }
+    });
+
+    moreIconImg.addEventListener('click', (event) => {
+      event.stopPropagation();
+      if (moreIconImg.src === dustbinIcon) {
+        deleteItem(listItem);
+        saveListToStorage(getListFromDOM());
+      }
+    });
+
+    todoItem.index = index + 1;
+  };
 
   const renderTodoListItems = () => {
-    const items = getListFromStorage(); // Retrieve items from storage
-    items.forEach((todoItem, index) => {
-      const listItem = document.createElement('li');
-
-      const checkbox = document.createElement('input');
-      checkbox.type = 'checkbox';
-      checkbox.classList.add('gray-checkbox');
-      checkbox.checked = todoItem.completed;
-      checkbox.classList.add('gray-checkbox');
-      checkbox.addEventListener('change', handleCheckboxChange);
-
-      const label = document.createElement('label');
-      label.textContent = todoItem.description;
-
-      const moreIconElement = document.createElement('img');
-      moreIconElement.src = moreIcon;
-      moreIconElement.alt = 'More Icon';
-      moreIconElement.classList.add('more-icon');
-      moreIconElement.draggable = true;
-      moreIconElement.addEventListener('dragstart', handleDragStart);
-
-      listItem.appendChild(checkbox);
-      listItem.appendChild(label);
-      listItem.appendChild(moreIconElement);
-      todoList.appendChild(listItem);
-      todoItem.index = index + 1;
-      checkbox.addEventListener('change', (event) => {
-        const listItem = event.target.closest('li');
-        const label = listItem.querySelector('label');
-
-        if (event.target.checked) {
-          label.classList.add('crossed-out');
-          listItem.classList.add('completed');
-        } else {
-          label.classList.remove('crossed-out');
-          listItem.classList.remove('completed');
-        }
-
-        saveListToStorage(getListFromDOM()); // Update storage after the checkbox state changes
-      });
-
-      listItem.addEventListener('click', () => {
-        listItem.contentEditable = true;
-        listItem.focus();
-        moreIconElement.src = dustbinIcon;
-        moreIconElement.alt = 'Dustbin Icon';
-        listItem.classList.add('selected');
-        listItem.classList.remove('edit-mode');
-      });
-
-      listItem.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') {
-          listItem.contentEditable = false;
-          moreIconElement.src = moreIcon;
-          moreIconElement.alt = 'More Icon';
-          listItem.classList.remove('selected');
-          listItem.classList.add('edit-mode');
-
-          // Update the description in the storage
-          const index = Array.from(todoList.children).indexOf(listItem);
-          const updatedList = getListFromStorage();
-          updatedList[index].description = listItem.querySelector('label').textContent;
-          saveListToStorage(updatedList);
-        }
-      });
-
-      moreIconElement.addEventListener('click', (event) => {
-        event.stopPropagation(); // Prevent the click event from propagating to the list item
-        if (moreIconElement.src === dustbinIcon) {
-          deleteItem(listItem);
-          saveListToStorage(getListFromDOM()); // Update storage after an item is removed
-        }
-      });
-    });
+    const items = getListFromStorage();
+    items.forEach(renderTodoListItem);
   };
 
   renderTodoListItems();
-  // card header
-  const header = document.querySelector('.card-header');
-  const refreshIconElement = document.createElement('img');
-  refreshIconElement.src = refreshIcon;
-  refreshIconElement.alt = 'Refresh icon';
-  refreshIconElement.classList.add('refresh-icon');
-  header.appendChild(refreshIconElement);
-  // backspace image
-  const backspaceIconElement = document.createElement('img');
-  backspaceIconElement.src = backspaceIcon;
-  backspaceIconElement.alt = 'Backspace icon';
-  backspaceIconElement.classList.add('backspace-icon');
-  // Input field image
-  inputField.appendChild(backspaceIconElement);
-  // Add event listener for the Enter key press
+
+  const handleAddItem = () => {
+    const inputValue = inputField.value.trim();
+    const newItem = addItem(inputValue);
+
+    if (newItem) {
+      renderTodoListItem(newItem, todoList.childElementCount);
+
+      inputField.value = '';
+    }
+  };
+
   inputField.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
-      addItem();
+      handleAddItem();
     }
   });
-  // Drag | drop
+
   todoList.addEventListener('dragover', handleDragOver);
   todoList.addEventListener('dragenter', handleDragEnter);
   todoList.addEventListener('dragleave', handleDragLeave);
   todoList.addEventListener('drop', handleDrop);
   todoList.addEventListener('dragend', handleDragEnd);
 
+  const getCheckedItems = () => Array.from(
+    document.querySelectorAll(
+      '.list-items li input[type="checkbox"]:checked',
+    ),
+  );
   const clearButton = document.getElementById('clear');
   clearButton.addEventListener('click', () => {
-    clearCompletedItems();
-    saveListToStorage(getListFromDOM()); // Update storage after clearing completed items
+    const completedItems = getCheckedItems();
+    clearCompletedItems(completedItems);
+    saveListToStorage(getListFromDOM());
   });
+  const header = document.querySelector('.card-header');
+
+  refreshIconElement.src = refreshIcon;
+  refreshIconElement.alt = 'Refresh icon';
+  refreshIconElement.classList.add('refresh-icon');
+  header.appendChild(refreshIconElement);
+
+  backspaceIconImg.src = backspaceIcon;
+  backspaceIconImg.alt = 'Backspace icon';
+  backspaceIconImg.classList.add('backspace-icon');
+  inputField.appendChild(backspaceIconImg);
 };
 
 initializeTodoListApp();
