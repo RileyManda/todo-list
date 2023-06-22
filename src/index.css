@@ -281,6 +281,26 @@ input[type="text"] {
   transition: cursor;
 }
 
+/* .drag-over {
+  background-color: #f0f0f0;
+} */
+
+li[draggable="true"] {
+  cursor: move;
+}
+
+/* During Drag */
+li[draggable="true"].dragging {
+  opacity: 0.5;
+}
+
+/* List Item Index */
+.index {
+  font-size: 14px;
+  color: #999;
+  margin-right: 10px;
+}
+
 #todo-list {
   display: flex;
   flex-direction: column;
